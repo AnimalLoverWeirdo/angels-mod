@@ -94,8 +94,7 @@ class Clan(object):
             self.med_cat_number = 0
             self.med_cat_predecessors = 0
             if medicine_cat is not None:
-                if self.medicine_cat.status != 'medicine cat':
-                    self.medicine_cat.status_change('medicine cat')
+                self.medicine_cat.status_change('medicine cat')
                 self.clan_cats.append(self.medicine_cat.ID)
             self.age = 0
             self.current_season = 'Newleaf'
@@ -104,7 +103,6 @@ class Clan(object):
             self.world_seed = world_seed
             self.camp_site = camp_site
             self.camp_bg = camp_bg
-            self.pregnancy_data = {}
 
     def create_clan(self):
         """ This function is only called once a new clan is created in the 'clan created' screen, not every time
@@ -197,8 +195,7 @@ class Clan(object):
     def new_medicine_cat(self, medicine_cat):
         if medicine_cat:
             self.medicine_cat = medicine_cat
-            if medicine_cat.status != 'medicine cat':
-                Cat.all_cats[medicine_cat.ID].status_change('medicine cat')
+            Cat.all_cats[medicine_cat.ID].status_change('medicine cat')
             self.med_cat_predecessors += 1
             self.med_cat_number += 1
 
@@ -353,29 +350,8 @@ class Clan(object):
                 game.clan.add_to_starclan(Cat.all_cats[cat])
             else:
                 print('Cat not found:', cat)
-        self.load_pregnancy(game.clan)
         game.switches['error_message'] = ''
 
-    def load_pregnancy(self, clan):
-        if game.clan.name == False:
-            return
-        file_path = f"saves/{game.clan.name}/pregnancy.json"
-        if os.path.exists(file_path):
-            with open(file_path,'r') as read_file:
-                clan.pregnancy_data = ujson.load(read_file)
-        else:
-            clan.pregnancy_data = {}
-
-    def save_pregnancy(self, clan):
-        if game.clan.name == False:
-            return
-        file_path = f"saves/{game.clan.name}/pregnancy.json"
-        try:
-            with open(file_path,'w') as file:
-                json_string = ujson.dumps(clan.pregnancy_data, indent = 4)
-                file.write(json_string)
-        except:
-            print(f"Saving the pregnancy data didn't work.")
 
 class OtherClan(object):
 

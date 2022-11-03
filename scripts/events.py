@@ -27,7 +27,6 @@ class Events(object):
             self.new_cat_invited = False
             game.patrolled.clear()
             relation_events = Relation_Events()
-            relation_events.handle_pregnancy_age(clan = game.clan)
             for cat in Cat.all_cats.copy().values():
                 if not cat.exiled:
                     self.one_moon_cat(cat, relation_events)
@@ -65,7 +64,6 @@ class Events(object):
             if game.settings.get('autosave') is True and game.clan.age % 5 == 0:
                 game.save_cats()
                 game.clan.save_clan()
-                game.clan.save_pregnancy(game.clan)
             game.clan.current_season = game.clan.seasons[game.clan.age % 12]
             game.event_scroll_ct = 0
             has_med = any(
@@ -107,7 +105,7 @@ class Events(object):
         cat.one_moon()
 
         relation_events.handle_relationships(cat)
-        relation_events.handle_having_kits(cat, clan = game.clan)
+        relation_events.handle_having_kits(cat)
 
     def check_clan_relations(self):
         if len(game.clan.all_clans) > 0 and randint(1, 5) == 1:
@@ -181,9 +179,9 @@ class Events(object):
             if cat.status == 'medicine cat' and game.clan.medicine_cat is None:
                 game.clan.medicine_cat = cat
             if cat.status in ['warrior', 'deputy'] and cat.age == 'elder' and len(cat.apprentice) < 1:
+                self.ceremony(cat, 'elder', ' has retired to the elder den')
                 if cat.status == 'deputy':
                     game.clan.deputy = None
-                self.ceremony(cat, 'elder', ' has retired to the elder den')
                 cat.status_change('elder')
             if cat.moons == cat_class.age_moons[cat.age][1]:
                 if cat.status == 'kitten':
@@ -211,16 +209,18 @@ class Events(object):
                         chance = randint(0, 2)
                         print('POSSIBLE MED APP - ELDER MED MENTOR - CHANCE:', chance)
                     elif has_elder_med is False and has_med is True:
-                        chance = randint(0, 90)
+                        chance = randint(0, 20)
                     elif has_elder_med and has_med:
                         if very_old_med:
-                            chance = randint(0, 40)
+                            chance = randint(0, 25)
                         else:
                             chance = 0
+                    elif game.clan.med_cat_number >= 3:
+                        chance = 0
                     else:
-                        chance = randint(0, 40)
+                        chance = randint(0, 30)
                     print('POSSIBLE MED APP - CHANCE:', chance)
-                    if chance in range(1, 6):    
+                    if chance in range(1, 11):    
                         if cat.trait in ['polite', 'quiet', 'sweet', 'daydreamer']:
                             chance = 1
                         else:
@@ -667,29 +667,22 @@ class Events(object):
                 created_cats = self.create_new_cat(loner=True, loner_name=True)
                 loner_name = created_cats[0].name
                 loner_text = [
-                    f'{name} finds a loner who joins the clan',
-                    f'A loner waits on the border for a patrol, asking to join the clan'
+                    f'{name} finds a loner named {loner_name} who joins the clan',
+                    f'A loner named {loner_name} waits on the border for a patrol, asking to join the clan'
                 ]
-                if loner_name in [names.loner_names]:
-                    success_text = [
-                        f'{str(loner_name)} decides to keep their name'
-                    ]
-                else:
-                    success_text = [
-                        f'The loner decides to take on a slightly more clan-like name, and is now called {str(loner_name)}'
-                    ]
                 game.cur_events_list.append(choice(loner_text))
-                game.cur_events_list.append(choice(success_text))
+                game.cur_events_list.append(str(loner_name) + ' decides to keep their name')
 
             elif type_of_new_cat == 3:
-                created_cats = self.create_new_cat(loner=True, loner_name=True)
+                created_cats = self.create_new_cat(loner=True)
                 loner_name = created_cats[0].name
                 loner_text = [
                     f'{name} finds a loner who joins the clan',
                     f'A loner says that they are interested in clan life and joins the clan'
                 ]
                 game.cur_events_list.append(choice(loner_text))
-                game.cur_events_list.append('The loner changes their name to ' + str(loner_name))
+                game.cur_events_list.append(
+                    'The loner changes their name to ' + str(loner_name))
 
             elif type_of_new_cat == 4:
                 created_cats = self.create_new_cat(kit=False,litter=False,loner=True)
@@ -710,19 +703,12 @@ class Events(object):
                 created_cats = self.create_new_cat(loner=False,loner_name=True,kittypet=True,kit=False,litter=False,relevant_cat=None)
                 loner_name = created_cats[0].name
                 loner_text = [
-                    f'{name} finds a kittypet who wants to join the clan',
-                    f'A kittypet stops {name} and asks to join the clan'
+                    f'{name} finds a kittypet named {str(loner_name)} who wants to join the clan',
+                    f'A kittypet named {str(loner_name)} stops {name} and asks to join the clan'
                 ]
-                if loner_name in [names.loner_names]:
-                    success_text = [
-                        f'{str(loner_name)} decides to keep their name'
-                ]
-                else:
-                    success_text = [ 
-                        f'The kittypet decides to take on a slightly more clan-like name, and is now called {str(loner_name)}'
-                    ]
                 game.cur_events_list.append(choice(loner_text))
-                game.cur_events_list.append(choice(success_text))
+                game.cur_events_list.append(
+                    str(loner_name) + ' decides to keep their name')
             
             elif type_of_new_cat == 6:
                 created_cats = self.create_new_cat(loner=True)
@@ -745,17 +731,17 @@ class Events(object):
                     relevant_cat=cat
                 )
                 if len(game.clan.all_clans) > 0:
-                    A_kit_text = ([
+                    Akit_text = ([
                         f'{parent1} finds an abandoned litter and decides to adopt them',
                         f'A loner leaves their litter to the clan. {str(parent1)} decides to adopt them as their own',
                         f'A {str(choice(game.clan.all_clans).name)}Clan queen decides to leave their litter with you. {str(parent1)} takes them as their own'
                     ])
                 else:
-                    A_kit_text = ([
+                    Akit_text = ([
                         f'{parent1} finds an abandoned litter and decides to adopt them as their own',
                         f'A loner leaves their litter to the clan. {str(parent1)} decides to adopt them as their own'
                     ])
-                game.cur_events_list.append(choice(A_kit_text))            
+                game.cur_events_list.append(choice(Akit_text))            
 
     def create_new_cat(self, loner = False, loner_name = False, kittypet = False, kit = False, litter = False, relevant_cat = None):
         name = None
@@ -766,14 +752,14 @@ class Events(object):
         age = randint(0,5)
         if not litter and not kit:
             age = randint(6,120)
+        elif litter and kit:
+            litter_age = randint(0,5)
+            age = litter_age
 
-        if (loner or kittypet) and not kit and not litter:
+        if loner and not kit and not litter or kittypet and not kit and not litter:
             if loner_name:
                 name = choice(names.loner_names)
-            if age >= 12:
-                status = "warrior"
-            else:
-                status = "apprentice"
+            status = "warrior"
             skill = "formerly a loner"
         if kittypet:
             skill = "formerly a kittypet"
@@ -782,12 +768,9 @@ class Events(object):
 
         amount = choice([1, 1, 2, 2, 2, 3]) if litter else 1
         created_cats = []
-        a = randint(0, 1)
         for number in range(amount):
             new_cat = None
-            if loner_name and a == 1:
-                    new_cat = Cat(moons=age, prefix=name, status=status, gender=choice(['female', 'male']))
-            elif loner_name:
+            if loner_name:
                 new_cat = Cat(moons=age, prefix=name, suffix='', status=status, gender=choice(['female', 'male']))
             else:
                 new_cat = Cat(moons=age, status=status, gender=choice(['female', 'male']))
@@ -796,7 +779,7 @@ class Events(object):
             if accessory:
                 new_cat.accessory = accessory
 
-            if (kit or litter) and relevant_cat and relevant_cat.ID in Cat.all_cats:
+            if (kit or litter) and relevant_cat and relevant_cat in Cat.all_cats:
                 new_cat.parent1 = relevant_cat.ID
                 if relevant_cat.mate:
                     new_cat.parent2 = relevant_cat.mate
@@ -809,12 +792,10 @@ class Events(object):
                 the_cat.relationships.append(Relationship(the_cat, new_cat))
                 relationships.append(Relationship(new_cat, the_cat))
             new_cat.relationships = relationships
-            new_cat.thought = 'Is looking around the camp with wonder'
             created_cats.append(new_cat)
         
         for new_cat in created_cats:
             add_siblings_to_cat(new_cat,cat_class)
-            add_children_to_cat(new_cat,cat_class)
             game.clan.add_cat(new_cat)
 
         return created_cats
@@ -974,7 +955,7 @@ class Events(object):
                 game.clan.leader_lives -= 1
                 cat.die()
                 game.cur_events_list.append(
-                    choice(cause_of_death) + ' at ' + str(cat.moons + 1) +
+                    choice(cause_of_death) + ' at ' + str(cat.moons) +
                     ' moons old')
 
         #Several/All Lives loss
@@ -1048,7 +1029,7 @@ class Events(object):
                         ]
                         game.clan.leader_lives = game.clan.leader_lives - lostlives
                         cat.die()
-                        game.cur_events_list.append(choice(cause_of_death) + ' at ' + str(cat.moons + 1) + ' moons old')
+                        game.cur_events_list.append(choice(cause_of_death) + ' at ' + str(cat.moons) + ' moons old')
 
         elif randint(1, 400) == 1:
             name = str(cat.name)
@@ -1223,7 +1204,7 @@ class Events(object):
             cat.die()
 
             game.cur_events_list.append(
-                choice(cause_of_death) + ' at ' + str(cat.moons + 1) +
+                choice(cause_of_death) + ' at ' + str(cat.moons) +
                 ' moons old')
 
         elif randint(1, 500) == 1:  # multiple deaths
@@ -1305,7 +1286,7 @@ class Events(object):
                         other_cat.die()
                         game.cur_events_list.append(
                             choice(cause_of_death) + ' at ' +
-                            str(other_cat.moons + 1) + ' moons old')
+                            str(other_cat.moons) + ' moons old')
                 elif cat.status == 'warrior':
                     if randint(1, murder_chance - 15) == 1:
                         cause_of_death = [
@@ -1321,7 +1302,7 @@ class Events(object):
                         other_cat.die()
                         game.cur_events_list.append(
                             choice(cause_of_death) + ' at ' +
-                            str(other_cat.moons + 1) + ' moons old')
+                            str(other_cat.moons) + ' moons old')
             elif cat.trait in ['bloodthirsty', 'vengeful', 'sadistic']:
                 if randint(1, murder_chance) == 1:
                     cause_of_death = [
@@ -1334,7 +1315,7 @@ class Events(object):
                     other_cat.die()
                     game.cur_events_list.append(
                         choice(cause_of_death) + ' at ' +
-                        str(other_cat.moons + 1) + ' moons old')
+                        str(other_cat.moons) + ' moons old')
             elif cat.status in [
                     'medicine cat', 'medicine cat apprentice'
             ] and cat.trait in ['bloodthirsty', 'vengeful', 'sadistic']:
@@ -1355,7 +1336,7 @@ class Events(object):
                     other_cat.die()
                     game.cur_events_list.append(
                         choice(cause_of_death) + ' at ' +
-                        str(other_cat.moons + 1) + ' moons old')
+                        str(other_cat.moons) + ' moons old')
 
         elif cat.moons > randint(150, 200):  # extra chance of cat dying to age
             if choice([1, 2, 3, 4, 5, 6]) == 1:
@@ -1364,20 +1345,20 @@ class Events(object):
                     game.cur_events_list.append(
                         str(cat.name) +
                         ' has passed due to their old age at ' +
-                        str(cat.moons + 1) + ' moons old')
+                        str(cat.moons) + ' moons old')
                 else:
                     game.clan.leader_lives -= 1
                     cat.die()
                     game.cur_events_list.append(
                         str(cat.name) +
                         ' has lost a life due to their old age at ' +
-                        str(cat.moons + 1) + ' moons old')
+                        str(cat.moons) + ' moons old')
             if cat.status == 'leader' and cat.moons > 269:
                 game.clan.leader_lives -= 10
                 cat.die()
                 game.cur_events_list.append(
                     str(cat.name) + ' has passed due to their old age at ' +
-                    str(cat.moons + 1) + ' moons old')
+                    str(cat.moons) + ' moons old')
 
         if game.settings.get('disasters') is True:
             alive_count = 0
