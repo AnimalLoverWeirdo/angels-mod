@@ -197,6 +197,10 @@ class Name(object):
             'Sand', 'Yellow', 'Pale', 'Sun', 'Light', 'Lion', 'Bright',
             'Honey', 'Daisy'
         ],
+        'CREAM2': [
+            'Sand', 'Yellow', 'Pale', 'Sun', 'Light', 'Lion', 'Bright',
+            'Honey', 'Daisy'
+        ],
         'GOLDEN': [
             'Gold', 'Golden', 'Yellow', 'Sun', 'Light', 'Lightning', 'Thunder',
             'Honey', 'Tawny', 'Lion', 'Dandelion'

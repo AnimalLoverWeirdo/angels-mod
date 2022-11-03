@@ -499,19 +499,19 @@ pelt_colours = [
     'WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'BLACK', 'PALEGINGER',
     'GOLDEN', 'GINGER', 'DARKGINGER', 'LIGHTBROWN', 'BROWN', 'DARKBROWN',
     'WHITE2', 'BLUE', 'CARAMEL', 'LILAC', 'BLACK2', 'DARK', 'PALE', 'CREAM',
-    'APRICOT', 'ORANGE', 'FAWN', 'CINNAMON', 'CHOCOLATE'
+    'APRICOT', 'ORANGE', 'FAWN', 'CINNAMON', 'CHOCOLATE', 'CREAM2'
 ]
 pelt_c_no_white = [
     'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'BLACK', 'PALEGINGER', 'GOLDEN',
     'GINGER', 'DARKGINGER', 'LIGHTBROWN', 'BROWN', 'DARKBROWN',
     'BLUE', 'CARAMEL', 'LILAC', 'BLACK2', 'DARK', 'PALE', 'CREAM',
-    'APRICOT', 'ORANGE', 'FAWN', 'CINNAMON', 'CHOCOLATE'
+    'APRICOT', 'ORANGE', 'FAWN', 'CINNAMON', 'CHOCOLATE', 'CREAM2'
 ]
 pelt_c_no_bw = [
     'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'PALEGINGER', 'GOLDEN', 'GINGER',
     'DARKGINGER', 'LIGHTBROWN', 'BROWN', 'DARKBROWN',
     'BLUE', 'CARAMEL', 'LILAC', 'DARK', 'PALE', 'CREAM',
-    'APRICOT', 'ORANGE', 'FAWN', 'CINNAMON', 'CHOCOLATE'
+    'APRICOT', 'ORANGE', 'FAWN', 'CINNAMON', 'CHOCOLATE', 'CREAM2'
 ]
 tortiepatterns = ['tortiesolid', 'tortietabby', 'tortiebengal', 'tortiemarbled', 'tortieticked',
     'tortiesmoke', 'tortierosette', 'tortiespeckled', 'tortiesnowflake', 'tortieclouded', 'tortiemerle',
@@ -520,7 +520,8 @@ patch_colours = ['PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'GOLDONE', 'GOLD
     'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO', 'GINGERTHREE', 'GINGERFOUR',
     'DARKONE', 'DARKTWO', 'DARKTHREE', 'DARKFOUR', 'PALEONE2', 'PALETWO2', 'PALETHREE2',
     'PALEFOUR2', 'CREAMONE', 'CREAMTWO', 'CREAMTHREE', 'CREAMFOUR', 'APRICOTONE', 'APRICOTTWO'
-    'APRICOTTHREE', 'APRICOTFOUR', 'ORANGEONE', 'ORANGETWO', 'ORANGETHREE', 'ORANGEFOUR']
+    'APRICOTTHREE', 'APRICOTFOUR', 'ORANGEONE', 'ORANGETWO', 'ORANGETHREE', 'ORANGEFOUR',
+    'CREAMONE2', 'CREAMTWO2', 'CREAMTHREE2', 'CREAMFOUR2']
 tortiebases = ['spotted', 'single', 'tabby', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette',
                'speckled', 'abyssinian', 'snowflake', 'clouded', 'merle', 'ghost', 'pinstripe', 'doberman']
 tortiecolours = ["SILVER", "GREY", "DARKGREY", "BLACK", "LIGHTBROWN", "BROWN", "DARKBROWN", "BLUE",
@@ -565,7 +566,7 @@ single_colours = [
     'WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'BLACK', 'PALEGINGER',
     'GOLDEN', 'GINGER', 'DARKGINGER', 'LIGHTBROWN', 'BROWN', 'DARKBROWN',
     'WHITE2', 'BLUE', 'LILAC', 'BLACK2', 'DARK', 'FAWN', 'CINNAMON', 'CARAMEL',
-    'CHOCOLATE', 'PALE', 'APRICOT', 'CREAM', 'ORANGE'
+    'CHOCOLATE', 'PALE', 'APRICOT', 'CREAM', 'ORANGE', 'CREAM2'
 ]
 eye_sprites = [
     'YELLOW', 'AMBER', 'HAZEL', 'PALEGREEN', 'GREEN', 'BLUE', 'DARKBLUE',
@@ -753,6 +754,12 @@ def describe_color(pelt, tortiecolour, tortiepattern, white_patches):
             color_name = 'white'
         elif color_name == 'black2':
             color_name = 'black'
+        elif color_name == 'dark':
+            color_name = 'dark grey-brown'
+        elif color_name == 'pale':
+            color_name = 'pale apricot'
+        elif color_name == 'cream2':
+            color_name = 'cream'
         if pelt.name == "Tabby":
             color_name = color_name + ' tabby'
         elif pelt.name == "Speckled":
@@ -796,14 +803,14 @@ def describe_color(pelt, tortiecolour, tortiepattern, white_patches):
                 color_name = color_name + ' calico'
         # enough to comment but not make calico
         if white_patches is not None:
-            if white_patches in little_white + mid_white:
+            if white_patches in little_white + mid_white and color_name != 'dark':
                 color_name = color_name + ' and white'
             # and white
-            elif white_patches in high_white:
+            elif white_patches in high_white and color_name != 'dark':
                 if pelt.name != "Calico":
                     color_name = color_name + ' and white'
             # white and
-            elif white_patches in mostly_white:
+            elif white_patches in mostly_white and color_name != 'dark':
                 color_name = 'white and ' + color_name
             # colorpoint
             elif white_patches in point_markings and pelt.name != 'Doberman':
