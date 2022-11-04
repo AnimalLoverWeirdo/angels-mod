@@ -142,64 +142,63 @@ class Name(object):
     colour_prefixes = {
         'WHITE': [
             'White', 'White', 'Pale', 'Snow', 'Cloud', 'Milk', 'Hail', 'Frost',
-            'Ice', 'Sheep', 'Blizzard', 'Moon', 'Light', 'Bone'
+            'Ice', 'Sheep', 'Blizzard', 'Moon', 'Light', 'Bone', 'Icy', 'Frosted'
         ],
         'WHITE2': [
             'White', 'White', 'Pale', 'Snow', 'Cloud', 'Milk', 'Hail', 'Frost',
-            'Ice', 'Sheep', 'Blizzard', 'Moon', 'Light', 'Bone'
+            'Ice', 'Sheep', 'Blizzard', 'Moon', 'Light', 'Bone', 'Icy', 'Frosted'
         ],
         'PALEGREY': [
             'Grey', 'Silver', 'Pale', 'Cloud', 'Hail', 'Frost', 'Ice', 'Mouse',
-            'Bright', "Fog"
+            'Bright', 'Fog', 'Foggy', 'Pebble', 'Light', 'Bone', 'Icy', 'Frosted'
         ],
         'SILVER': [
             'Grey', 'Silver', 'Cinder', 'Ice', 'Frost', 'Rain', 'Blue',
-            'River', 'Blizzard', 'Bone', 'Icy'
+            'River', 'Blizzard', 'Bone', 'Icy', 'Frosted', 'Berry'
         ],
         'LILAC': [
             'Grey', 'Silver', 'Cinder', 'Ice', 'Frost', 'Rain', 'Blue',
-            'River', 'Blizzard', 'Bone', 'Icy'
+            'River', 'Blizzard', 'Bone', 'Icy', 'Lilac', 'Lavender'
         ],
         'GREY': [
             'Grey', 'Grey', 'Ash', 'Cinder', 'Rock', 'Stone', 'Shade', 'Mouse',
-            'Smoke', 'Shadow', "Fog", 'Bone'
+            'Smoke', 'Shadow', 'Fog', 'Bone', 'Pebble', 'Mountain', 'Cliff'
         ],
         'BLUE': [
             'Grey', 'Grey', 'Ash', 'Cinder', 'Rock', 'Stone', 'Shade', 'Mouse',
-            'Smoke', 'Shadow', "Fog", 'Bone', 'Blue'
+            'Smoke', 'Shadow', 'Fog', 'Bone', 'Blue', 'Mist', 'Misty'
         ],
         'DARKGREY': [
             'Grey', 'Shade', 'Raven', 'Crow', 'Stone', 'Dark', 'Night',
-            'Smoke', 'Shadow'
+            'Smoke', 'Shadow', 'Pebble', 'Cinder', 'Rock', 'Stone'
         ],
         'BLACK': [
             'Black', 'Black', 'Shade', 'Crow', 'Raven', 'Ebony', 'Dark',
-            'Night', 'Shadow', 'Scorch'
+            'Night', 'Shadow', 'Scorch', 'Scorched'
         ],
         'BLACK2': [
             'Black', 'Black', 'Shade', 'Crow', 'Raven', 'Ebony', 'Dark',
-            'Night', 'Shadow', 'Scorch'
+            'Night', 'Shadow', 'Scorch', 'Scorched'
         ],
         'DARK': [
             'Black', 'Black', 'Shade', 'Crow', 'Raven', 'Ebony', 'Dark',
-            'Night', 'Shadow', 'Scorch''Brown', 'Shade', 'Dark', 'Night',
-            'Russet', 'Rowan', 'Mud'
+            'Night', 'Shadow', 'Scorch', 'Brown', 'Shade', 'Dark', 'Night'
         ],
         'PALEGINGER': [
             'Sand', 'Yellow', 'Pale', 'Sun', 'Light', 'Lion', 'Bright',
-            'Honey', 'Daisy'
+            'Honey', 'Daisy', 'Cream', 'Sandy', 'Creamy'
         ],
         'PALE': [
             'Sand', 'Yellow', 'Pale', 'Sun', 'Light', 'Lion', 'Bright',
-            'Honey', 'Daisy'
+            'Honey', 'Daisy', 'Cream', 'Apricot', 'Sandy', 'Creamy'
         ],
         'CREAM': [
             'Sand', 'Yellow', 'Pale', 'Sun', 'Light', 'Lion', 'Bright',
-            'Honey', 'Daisy'
+            'Honey', 'Daisy', 'Cream', 'Creamy', 'Sandy'
         ],
         'CREAM2': [
             'Sand', 'Yellow', 'Pale', 'Sun', 'Light', 'Lion', 'Bright',
-            'Honey', 'Daisy'
+            'Honey', 'Daisy', 'Cream', 'Creamy', 'Sandy'
         ],
         'GOLDEN': [
             'Gold', 'Golden', 'Yellow', 'Sun', 'Light', 'Lightning', 'Thunder',
@@ -207,76 +206,77 @@ class Name(object):
         ],
         'GINGER': [
             'Red', 'Fire', 'Rust', 'Flame', 'Ember', 'Sun', 'Light', 'Rose',
-            'Rowan', 'Fox', 'Tawny', "Plum"
+            'Rowan', 'Fox', 'Tawny', 'Plum'
         ],
         'APRICOT': [
             'Red', 'Fire', 'Rust', 'Flame', 'Ember', 'Sun', 'Light', 'Rose',
-            'Rowan', 'Fox', 'Tawny', "Plum"
+            'Rowan', 'Fox', 'Tawny', 'Apricot'
         ],
         'ORANGE': [
             'Red', 'Fire', 'Rust', 'Flame', 'Ember', 'Sun', 'Light', 'Rose',
-            'Rowan', 'Fox', 'Tawny', "Plum"
+            'Rowan', 'Fox', 'Tawny', 'Pumpkin'
         ],
         'DARKGINGER': [
-            'Red', 'Red', 'Fire', 'Rust', 'Flame', 'Oak', 'Shade', 'Russet',
+            'Red', 'Pumpkin', 'Fire', 'Rust', 'Flame', 'Oak', 'Shade', 'Russet',
             'Rowan', 'Fox'
         ],
         'LIGHTBROWN': [
             'Brown', 'Pale', 'Light', 'Mouse', 'Dust', 'Sand', 'Bright', 'Mud',
-            'Hazel'
+            'Hazel', 'Muddy'
         ],
         'CARAMEL': [
-            'Brown', 'Pale', 'Light', 'Mouse', 'Dust', 'Sand', 'Bright', 'Mud',
-            'Hazel'
+            'Brown', 'Pale', 'Light', 'Mouse', 'Dust', 'Sand', 'Bright', 'Cream',
+            'Hazel', 'Fawn'
         ],
         'FAWN': [
-            'Brown', 'Pale', 'Light', 'Mouse', 'Dust', 'Sand', 'Bright', 'Mud',
-            'Hazel'
+            'Brown', 'Pale', 'Light', 'Mouse', 'Dust', 'Sand', 'Bright', 'Deer',
+            'Hazel', 'Fawn'
         ],
         'BROWN': [
             'Brown', 'Oak', 'Mouse', 'Dark', 'Shade', 'Russet', 'Stag',
-            'Acorn', 'Mud', "Deer"
+            'Acorn', 'Mud', 'Deer'
         ],
         'CINNAMON': [
-            'Brown', 'Oak', 'Mouse', 'Dark', 'Shade', 'Russet', 'Stag',
-            'Acorn', 'Mud', "Deer"
+            'Brown', 'Oak', 'Mouse', 'Dark', 'Shade', 'Russet', 'Cinnamon',
+            'Acorn', 'Mud', 'Deer'
         ],
         'CHOCOLATE': [
-            'Brown', 'Oak', 'Mouse', 'Dark', 'Shade', 'Russet', 'Stag',
-            'Acorn', 'Mud', "Deer"
+            'Brown', 'Oak', 'Mouse', 'Dark', 'Shade', 'Russet', 'Cocoa',
+            'Acorn', 'Mud', 'Deer'
         ],
         'DARKBROWN':
-        ['Brown', 'Shade', 'Dark', 'Night', 'Russet', 'Rowan', 'Mud']
+        ['Brown', 'Shade', 'Dark', 'Night', 'Russet', 'Rowan', 'Mud',
+         'Muddy', 'Moose', 'Shadow']
     }
 
     eye_prefixes = {
-        'YELLOW': ['Yellow', 'Moon', 'Daisy', 'Honey', 'Light', 'Sun', 'Sunny', 'Bright', 'Marigold', 'Bee', 'Bumble'],
-        'AMBER': ['Amber', 'Sun', 'Fire', 'Gold', 'Honey', 'Scorch', 'Ember', 'Flame', 'Flaming', 'Orange'],
-        'HAZEL': ['Tawny', 'Hazel', 'Gold', 'Daisy', 'Sand'],
-        'PALEGREEN': ['Green', 'Pale', 'Mint', 'Fern', 'Weed'],
-        'GREEN': ['Green', 'Fern', 'Weed', 'Holly', 'Clover', 'Olive'],
-        'BLUE': ['Blue', 'Blue', 'Ice', 'Sky', 'Lake', 'Frost', 'Water'],
-        'DARKBLUE': ['Blue', 'Sky', 'Lake', 'Berry', 'Dark', 'Water', 'Deep'],
-        'BLUEYELLOW': ['Yellow', 'Blue', 'Odd', 'One', 'Moon'],
-        'BLUEGREEN': ['Green', 'Blue', 'Odd', 'One', 'Clover'],
-        'PALEYELLOW': ['Yellow', 'Moon', 'Daisy', 'Honey', 'Light', 'Sun', 'Dandelion', 'Marigold'],
-        'RED': ['Red', 'Crimson', 'Fire', 'Blood', 'Scorch', 'Flame', 'Flaming', 'Rose', 'Ember'],
-        'AQUA': ['Ocean', 'Sea', 'Turtle', 'Blue', 'Splash', 'River', 'Water', 'Stream', 'Aqua', 'River', 'Stream', 'Puddle'],
-        'PALEVIOLET': ['Purple', 'Magic', 'Magical', 'Moon', 'Violet', 'Lavender', 'Lilac', 'Amethyst', 'Jewel', 'Gem', 'Gemstone'],
-        'SAGE': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsely'],
-        'PALEBLUE': ['Blue', 'Sky', 'Moon', 'Borage', 'Splash', 'Pale', 'Serene', 'Cloud', 'Sapphire', 'Stream'],
-        'PINK': ['Petal', 'Flower', 'Rose', 'Pale', 'Soft', 'Primrose', 'Bloom', 'Strawberry', 'Blossom', 'Hibiscus'],
-        'DARKPINK': ['Petal', 'Flower', 'Rose', 'Pale', 'Soft', 'Primrose', 'Bloom', 'Strawberry', 'Blossom', 'Hibiscus', 'Dark', 'Berry'],
-        'VIOLET': ['Night', 'Moon', 'Jewel', 'Magic', 'Violet', 'Purple', 'Lavender', 'Plum'],
-        'BROWN': ['Oak', 'Brown', 'Tree', 'Bark', 'Alder', 'Branch', 'Twig', 'Stem', 'Mud', 'Mouse', 'Dust', 'Acorn', 'Timber'],
-        'SPRINGGREEN': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsely', 'Bright', 'Spring'],
-        'GOLDEN': ['Bright', 'Gold', 'Golden', 'Amber', 'Yellow', 'Orange', 'Sun', 'Sunny', 'Shine', 'Shining'],
-        'HONEY': ['Yellow', 'Moon', 'Daisy', 'Honey', 'Light', 'Bright', 'Sun', 'Sunny', 'Shine', 'Shining', 'Gold', 'Golden'],
-        'COPPER': ['Copper', 'Brown', 'Orange', 'Redwood', 'Bright', 'Scorch', 'Flame', 'Fire', 'Adder', 'Fox', 'Gold'],
-        'MAGENTA': ['Petal', 'Flower', 'Bloom', 'Blossom', 'Hibiscus', 'Violet', 'Lavender', 'Lilac', 'Amethyst', 'Jewel', 'Gem', 'Gemstone'],
-        'MINT': ['Mint', 'Minty', 'Cold', 'Blue', 'Splash', 'River', 'Water', 'Stream', 'Breeze', 'River', 'Stream', 'Puddle'],
-        'EMERALD': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsely', 'Bright', 'Spring', 'Emerald', 'Jewel'],
-        'DARKRED': ['Red', 'Crimson', 'Fire', 'Blood', 'Scorch', 'Flame', 'Flaming', 'Rose', 'Ember', 'Ebony', 'Burnt', 'Burning']
+        'YELLOW': ['Yellow', 'Moon', 'Daisy', 'Honey', 'Light', 'Sun', 'Sunny', 'Bright', 'Marigold', 'Bee', 'Bumble', 'Sunflower', 'Dandelion', 'Wasp', 'Hive', 'Petal'],
+        'AMBER': ['Amber', 'Sun', 'Fire', 'Gold', 'Honey', 'Scorch', 'Ember', 'Flame', 'Flaming', 'Orange', 'Butterfly', 'Monarch', 'Pumpkin', 'Carrot', 'Rust', 'Rusty'],
+        'HAZEL': ['Tawny', 'Hazel', 'Gold', 'Daisy', 'Sand', 'Sandy', 'Hazelnut', 'Golden', 'Flower', 'Pale', 'Olive', 'Herb', 'Calm', 'Birch', 'Fawn', 'Spring'],
+        'PALEGREEN': ['Green', 'Pale', 'Mint', 'Fern', 'Holly', 'Clover', 'Lime', 'Thyme', 'Pale', 'Light', 'Grass', 'Parsley', 'Leaf', 'Tansy', 'Herb', 'Thyme'],
+        'GREEN': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsley', 'Grass', 'Leaf', 'Forest', 'Turtle', 'Lime'],
+        'BLUE': ['Blue', 'Ice', 'Sky', 'Lake', 'Frost', 'Water', 'Ocean', 'Lake', 'Borage', 'Splash', 'Sapphire', 'Stream', 'Puddle', 'River', 'Sky', 'Mist', 'Misty'],
+        'DARKBLUE': ['Blue', 'Sky', 'Lake', 'Berry', 'Dark', 'Water', 'Deep', 'Ocean', 'Lake', 'Borage', 'Splash', 'Sapphire', 'Stream', 'Blueberry', 'Berry', 'Sea'],
+        'BLUEYELLOW': ['Yellow', 'Moon', 'Daisy', 'Honey', 'Light', 'Sun', 'Blue', 'Ice', 'Sky', 'Lake', 'Frost', 'Water', 'Ocean', 'Lake', 'Bee', 'Blueberry', 'Wasp'],
+        'BLUEGREEN': ['Blue', 'Ice', 'Sky', 'Lake', 'Frost', 'Water', 'Ocean', 'Lake', 'Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Calm', 'Thyme', 'Blueberry', 'Sage'],
+        'PALEYELLOW': ['Yellow', 'Moon', 'Daisy', 'Honey', 'Light', 'Sun', 'Dandelion', 'Marigold', 'Bee', 'Bumble', 'Sunflower', 'Dandelion', 'Wasp', 'Hive', 'Pale'],
+        'RED': ['Red', 'Crimson', 'Fire', 'Blood', 'Scorch', 'Flame', 'Flaming', 'Rose', 'Ember', 'Burnt', 'Burning', 'Poppy', 'Petal', 'Hidden', 'Cardinal', 'Robin'],
+        'AQUA': ['Ocean', 'Sea', 'Turtle', 'Blue', 'Splash', 'River', 'Water', 'Stream', 'Aqua', 'River', 'Stream', 'Puddle', 'Turquoise', 'Green', 'Lake', 'Pond'],
+        'PALEVIOLET': ['Purple', 'Magic', 'Magical', 'Moon', 'Violet', 'Lavender', 'Lilac', 'Amethyst', 'Jewel', 'Gem', 'Gemstone', 'Petal', 'Flower', 'Blossom'],
+        'SAGE': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsley', 'Grass', 'Leaf', 'Forest', 'Sage', 'Serene'],
+        'PALEBLUE': ['Blue', 'Sky', 'Moon', 'Borage', 'Splash', 'Pale', 'Serene', 'Cloud', 'Sapphire', 'Stream', 'River', 'Jay', 'Feather', 'Splash', 'Pale', 'Light'],
+        'PINK': ['Petal', 'Flower', 'Rose', 'Pale', 'Soft', 'Primrose', 'Bloom', 'Strawberry', 'Blossom', 'Hibiscus', 'Berry', 'Pink', 'Sweet', 'Serene', 'Flower'],
+        'DARKPINK': ['Petal', 'Flower', 'Rose', 'Pale', 'Soft', 'Primrose', 'Bloom', 'Strawberry', 'Blossom', 'Hibiscus', 'Dark', 'Berry', 'Flower', 'Gemstone'],
+        'VIOLET': ['Night', 'Purple', 'Magic', 'Magical', 'Moon', 'Violet', 'Lavender', 'Lilac', 'Amethyst', 'Jewel', 'Gem', 'Gemstone', 'Petal', 'Flower', 'Plum'],
+        'BROWN': ['Oak', 'Brown', 'Tree', 'Bark', 'Alder', 'Branch', 'Twig', 'Stem', 'Mud', 'Mouse', 'Dust', 'Acorn', 'Timber', 'Log', 'Brown', 'Dusky', 'Dusk', 'Dust'],
+        'SPRINGGREEN': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsely', 'Bright', 'Spring', 'Light', 'Stem', 'Leaf'],
+        'GOLDEN': ['Bright', 'Gold', 'Golden', 'Amber', 'Yellow', 'Orange', 'Sun', 'Sunny', 'Shine', 'Shining', 'Moon', 'Light', 'Bright', 'Honey', 'Spring', 'Shiny'],
+        'HONEY': ['Yellow', 'Moon', 'Daisy', 'Honey', 'Light', 'Bright', 'Sun', 'Sunny', 'Shine', 'Shining', 'Gold', 'Golden', 'Spring', 'Shiny', 'Hive', 'Bee', 'Bumble'],
+        'COPPER': ['Copper', 'Brown', 'Orange', 'Redwood', 'Bright', 'Scorch', 'Flame', 'Fire', 'Adder', 'Fox', 'Rust', 'Rusty', 'Oak', 'Brown', 'Ember', 'Shiny', 'Hare'],
+        'MAGENTA': ['Petal', 'Flower', 'Bloom', 'Blossom', 'Hibiscus', 'Violet', 'Lavender', 'Lilac', 'Amethyst', 'Jewel', 'Gem', 'Gemstone', 'Magenta', 'Flower', 'Petal'],
+        'MINT': ['Mint', 'Minty', 'Cold', 'Blue', 'Splash', 'River', 'Water', 'Stream', 'Breeze', 'River', 'Stream', 'Puddle', 'Serene', 'Mist', 'Misty', 'Pale', 'Sky'],
+        'EMERALD': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsely', 'Bright', 'Spring', 'Emerald', 'Jewel', 'Jade'],
+        'DARKRED': ['Red', 'Crimson', 'Fire', 'Blood', 'Scorch', 'Flame', 'Flaming', 'Rose', 'Ember', 'Burnt', 'Burning', 'Dark', 'Night', 'Raven', 'Cardinal', 'Crow']
     }
 
     loner_names = [
@@ -339,7 +339,9 @@ class Name(object):
         "Caroline", "Conan", "Cloud", "Charlie", "Cowboy", 'Burger', "Dune",
         "Dan", "Delilah", "Emerald", "Emy", "Erica", " Eddie", "Eda", "Ferret",
         "Fawn", "Fiver", "Fallow", "Ferry", "Gamble", "Grain", "Gir", "Hop",
-        "Hot Sauce", "Habanero", "Taco Bell", "Cheetoman", "Queso", "Ruby"
+        "Hot Sauce", "Habanero", "Taco Bell", "Cheetoman", "Queso", "Ruby",
+        "Pipsqueak", "Pipsqueak", "Pipsqueak", "Pipsqueak", "Pipsqueak",
+        "Angel", "Angel", "Angel", "Angel", "Angel", "Angel", "Angel", "Angel"
     ]
 
     if os.path.exists('saves/prefixlist.txt'):
