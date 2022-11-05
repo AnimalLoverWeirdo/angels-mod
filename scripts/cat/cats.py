@@ -8,13 +8,14 @@ from .names import *
 from .sprites import *
 from .thoughts import *
 from .appearance_utility import *
+from scripts.conditions import Illness, Injury
 
 from scripts.utility import *
 from scripts.game_structure.game_essentials import *
 from scripts.cat_relations.relationship import *
 
 
-class Cat(object):
+class Cat():
     used_screen = screen
     traits = [
         'adventurous', 'altruistic', 'ambitious', 'bloodthirsty', 'bold',
@@ -75,6 +76,12 @@ class Cat(object):
         'strong connection to StarClan', 'smart', 'very smart', 'extremely smart',
         'good kitsitter', 'great kitsitter', 'excellent kitsitter', 'camp keeper', 'den builder',
     ]
+    backstories = [
+        'clanborn', 'half-clan1', 'half-clan2', 'outsider_roots1', 'outsider_roots2', 
+        'loner1', 'loner2', 'kittypet1', 'kittypet2', 'rogue1', 'rogue2', 'abandoned1',
+        'abandoned2', 'abandoned3', 'medicine_cat', 'otherclan', 'otherclan2', 'ostracized_warrior', 'disgraced', 
+        'retired_leader', 'refugee', 'tragedy_survivor'
+    ]
 
     all_cats = {}  # ID: object
     other_cats = {}  # cats outside the clan
@@ -83,6 +90,7 @@ class Cat(object):
                  prefix=None,
                  gender=None,
                  status="kitten",
+                 backstory="clanborn",
                  parent1=None,
                  parent2=None,
                  pelt=None,
@@ -93,6 +101,7 @@ class Cat(object):
                  example=False):
         self.gender = gender
         self.status = status
+        self.backstory = backstory
         self.age = None
         self.skill = None
         self.trait = None
@@ -121,6 +130,9 @@ class Cat(object):
         self.accessory = None
         self.birth_cooldown = 0
         self.siblings = []
+        self.children = []
+        self.illness = None
+        self.injury = None
 
         # setting ID
         if ID is None:
@@ -134,7 +146,7 @@ class Cat(object):
         # age and status
         if status is None and moons is None:
             self.age = choice(self.ages)
-        elif moons != None:
+        elif moons is not None:
             for key_age in self.age_moons.keys():
                 if moons in range(self.age_moons[key_age][0], self.age_moons[key_age][1]+1):
                     self.age = key_age
@@ -168,6 +180,19 @@ class Cat(object):
                 self.skill = choice(self.med_skills)
             else:
                 self.skill = choice(self.skills)
+
+        # backstory
+        if self.backstory == None:
+            if self.skill == 'formerly a loner':
+                backstory = choice(['loner1', 'loner2', 'rogue1', 'rogue2'])
+                self.backstory = backstory
+            elif self.skill == 'formerly a kittypet':
+                backstory = choice(['kittypet1', 'kittypet2'])
+                self.backstory = backstory
+            else:
+                self.backstory = 'clanborn'
+        else:
+            self.backstory = self.backstory
 
         # sex
         if self.gender is None:
@@ -211,7 +236,7 @@ class Cat(object):
         self.paralyzed = False
         self.no_kits = False
         self.exiled = False
-        if self.genderalign == None:
+        if self.genderalign is None:
             self.genderalign = self.gender
 
         # Sprite sizes
@@ -239,7 +264,7 @@ class Cat(object):
         self.paralyzed = False
         self.no_kits = False
         self.exiled = False
-        if self.genderalign == None:
+        if self.genderalign is None:
             self.genderalign = self.gender
 
         # SAVE CAT INTO ALL_CATS DICTIONARY IN CATS-CLASS
@@ -260,7 +285,7 @@ class Cat(object):
         else:
             self.dead = True
 
-        if self.mate != None:
+        if self.mate is not None:
             self.mate = None
             if type(self.mate) == str:
                 mate = Cat.all_cats.get(self.mate)
@@ -284,14 +309,12 @@ class Cat(object):
         elif self.status == 'medicine cat apprentice':
             self.update_med_mentor()
         # updates skill
-        if self.skill == '???':
-            if self.status == 'warrior':
-                self.skill = choice(self.skills)
-                self.update_mentor()
-            elif self.status == 'medicine cat':
-                self.skill = choice(self.med_skills)
-                game.clan.med_cat_number += 1
-                self.update_med_mentor()
+        if self.status == 'warrior':
+            self.skill = choice(self.skills)
+            self.update_mentor()
+        elif self.status == 'medicine cat':
+            self.skill = choice(self.med_skills)
+            self.update_med_mentor()
         else:
             self.skill = self.skill
         if self.status == 'elder':
@@ -309,7 +332,6 @@ class Cat(object):
             else:
                 possible_groups = ['Outgoing', 'Benevolent', 'Abrasive', 'Reserved']
                 for x in possible_groups:
-                    print(self.trait in self.personality_groups[x])
                     if self.trait in self.personality_groups[x]:
                         possible_trait = self.personality_groups.get(x)
                         chosen_trait = choice(possible_trait)
@@ -471,14 +493,14 @@ class Cat(object):
                 lambda relation: str(relation.cat_to) == str(random_id) and
                 not relation.cat_to.dead, self.relationships))
         random_cat = self.all_cats.get(random_id)
-        kitten_and_exiled = random_cat != None and random_cat.exiled and self.age == "kitten"
+        kitten_and_exiled = random_cat is not None and random_cat.exiled and self.age == "kitten"
 
         # is also found in Relation_Events.MAX_ATTEMPTS
         attempts_left = 1000
         while len(relevant_relationship_list) < 1 or random_id == self.ID or kitten_and_exiled:
             random_id = random.choice(cats_to_choose)
             random_cat = self.all_cats.get(random_id)
-            kitten_and_exiled = random_cat != None and random_cat.exiled and self.age == "kitten"
+            kitten_and_exiled = random_cat is not None and random_cat.exiled and self.age == "kitten"
             relevant_relationship_list = list(
                 filter(
                     lambda relation: str(relation.cat_to) == str(random_id) and
@@ -499,6 +521,40 @@ class Cat(object):
                 self.skill = choice(self.skills)
 
 # ---------------------------------------------------------------------------- #
+#                            !IMPORTANT INFORMATION!                           #
+#   conditions ar currently not integrated, this are just the base functions   #
+#    me (Lixxis) will integrate them after tests are written and completed     #
+# ---------------------------------------------------------------------------- #
+
+    def moon_skip_illness(self):
+        "handles the moon skip for illness"
+        if not self.is_ill():
+            return
+
+        if randint(1,self.illness.mortality) == 1:
+            self.die()
+
+        self.illness.duration -= 1
+        if self.illness.duration <= 0:
+            self.illness = None
+
+    def moon_skip_injury(self):
+        "handles the moon skip for injuries"
+        if not self.is_injured():
+            return
+        
+        if randint(1,self.injury.mortality) == 1:
+            self.die()
+        
+        for risk in self.injury.risks:
+            if randint(1,risk["chance"]) == 1:
+                self.get_ill(risk["name"])
+
+        self.injuries.duration -= 1
+        if self.injuries.duration <= 0:
+            self.injuries = None
+
+# ---------------------------------------------------------------------------- #
 #                                   relative                                   #
 # ---------------------------------------------------------------------------- #
 
@@ -515,6 +571,10 @@ class Cat(object):
         """Returns list of the siblings."""
         return self.siblings
 
+    def get_children(self):
+        """Returns list of the children."""
+        return self.children
+
     def is_grandparent(self, other_cat):
         """Check if the cat is the grandparent of the other cat."""
         parents = other_cat.get_parents()
@@ -522,14 +582,14 @@ class Cat(object):
         right_parents = []
         if len(parents) == 2:
             left_p = Cat.all_cats.get(parents[0])
-            if left_p != None:
+            if left_p is not None:
                 left_parents = left_p.get_parents()
             right_p = Cat.all_cats.get(parents[1])
-            if right_p != None:
+            if right_p is not None:
                 right_parents = right_p.get_parents()
         if len(parents) == 1:
             left_p = Cat.all_cats.get(parents[0])
-            if left_p != None:
+            if left_p is not None:
                 left_parents = left_p.get_parents()
 
         if self.ID in left_parents or self.ID in right_parents:
@@ -555,6 +615,209 @@ class Cat(object):
         if set(self.get_siblings()) & set(other_cat.get_parents()):
             return True
         return False
+
+# ---------------------------------------------------------------------------- #
+#                            !IMPORTANT INFORMATION!                           #
+#   conditions ar currently not integrated, this are just the base functions   #
+#    me (Lixxis) will integrate them after tests are written and completed     #
+# ---------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
+#                                  conditions                                  #
+# ---------------------------------------------------------------------------- #
+  
+    def get_ill(self, name):
+        if self.is_ill() or name not in ILLNESSES.keys():
+            if name not in ILLNESSES.keys():
+                print(f"WARNING: {name} is not in the illnesses collection.")
+            return
+        
+        illness = ILLNESSES[name]
+        self.illness = Illness(
+            name,
+            mortality= illness["mortality"],
+            infectiousness = illness["infectiousness"], 
+            duration = illness["duration"], 
+            medicine_duration = illness["medicine_duration"], 
+            medicine_mortality = illness["medicine_mortality"], 
+            number_medicine_cats = illness["number_medicine_cats"],
+            number_medicine_apprentices = illness["number_medicine_apprentices"]
+        )
+
+    def get_injured(self,name):
+        if self.is_injured() or name not in INJURIES.keys():
+            if name not in INJURIES.keys():
+                print(f"WARNING: {name} is not in the injuries collection.")
+            return
+
+        injury = INJURIES[name]
+        self.injury = Injury(
+            name,
+            duration = injury["duration"],
+            medicine_duration = injury["medicine_duration"], 
+            mortality = injury["mortality"],
+            medicine_mortality = injury["medicine_mortality"],
+            risks = injury["risks"],
+            illness_infectiousness = injury["illness_infectiousness"],
+            number_medicine_cats = injury["number_medicine_cats"],
+            number_medicine_apprentices = injury["number_medicine_apprentices"]
+        )
+
+    def is_ill(self):
+        return self.illness is not None
+
+    def is_injured(self):
+        return self.injury is not None
+
+    def contact_with_ill_cat(self, cat):
+        "handles if one cat had contact with a ill cat"
+        if self.is_ill() or cat is None or not cat.is_ill() or cat.illness.infectiousness == 0:
+            return
+
+        illness_name = cat.illness.name
+        rate = cat.illness.infectiousness
+        if self.is_injured():
+            illness_infect = list(filter(lambda ill: ill["name"] == illness_name ,self.injuries.illness_infectiousness))
+            if illness_infect is not None and len(illness_infect) > 0:
+                illness_infect = illness_infect[0]
+                rate -= illness_infect["lower_by"]
+        
+        # prevent rate lower 0 and print warning message
+        if rate < 0:
+            print(f"WARNING: injury {self.injuries.name} has lowered chance of {illness_name} infection to {rate}")
+            rate = 1
+
+        if randint(1, rate) == 1:
+            self.get_ill(illness_name)
+
+# ---------------------------------------------------------------------------- #
+#                                    mentor                                    #
+# ---------------------------------------------------------------------------- #
+
+    def is_valid_med_mentor(self, potential_mentor):
+        # Dead or exiled cats can't be mentors
+        if potential_mentor.dead or potential_mentor.exiled:
+            return False
+        # Match jobs
+        if self.status == 'medicine cat apprentice' and potential_mentor.status == 'medicine cat':
+            return True
+        if self.status == 'medicine cat apprentice' and potential_mentor.status != 'medicine cat':
+            return False
+        # If not an app, don't need a mentor
+        if 'medicine cat apprentice' not in self.status:
+            return False
+        # Dead cats don't need mentors
+        if self.dead:
+            return False
+        return True
+
+    def is_valid_mentor(self, potential_mentor):
+        # Dead or exiled cats can't be mentors
+        if potential_mentor.dead or potential_mentor.exiled:
+            return False
+        # Match jobs
+        if self.status == 'medicine cat apprentice' and potential_mentor.status != 'medicine cat':
+            return False
+        if self.status == 'apprentice' and potential_mentor.status not in [
+                'leader', 'deputy', 'warrior'
+        ]:
+            return False
+        # If not an app, don't need a mentor
+        if 'apprentice' not in self.status:
+            return False
+        # Dead cats don't need mentors
+        if self.dead:
+            return False
+        return True
+
+    def update_med_mentor(self, new_mentor=None):
+        if new_mentor is None:
+            # If not reassigning and current mentor works, leave it
+            if self.mentor and self.is_valid_med_mentor(self.mentor):
+                return
+        old_mentor = self.mentor
+        # Should only have mentor if alive and some kind of apprentice
+        if 'medicine cat apprentice' in self.status and not self.dead and not self.exiled:
+            # Need to pick a random mentor if not specified
+            if new_mentor is None:
+                potential_mentors = []
+                priority_mentors = []
+                for cat in self.all_cats.values():
+                    if self.is_valid_med_mentor(cat):
+                        potential_mentors.append(cat)
+                        if len(cat.apprentice) == 0:
+                            priority_mentors.append(cat)
+                # First try for a cat who currently has no apprentices
+                if len(priority_mentors) > 0:
+                    new_mentor = choice(priority_mentors)
+                elif len(potential_mentors) > 0:
+                    new_mentor = choice(potential_mentors)
+            # Mentor changing to chosen/specified cat
+            self.mentor = new_mentor
+            if new_mentor is not None:
+                if self not in new_mentor.apprentice:
+                    new_mentor.apprentice.append(self)
+                if self in new_mentor.former_apprentices:
+                    new_mentor.former_apprentices.remove(self)
+        else:
+            self.mentor = None
+        # Move from old mentor's apps to former apps
+        if old_mentor is not None and old_mentor != self.mentor:
+            if self in old_mentor.apprentice:
+                old_mentor.apprentice.remove(self)
+            if self not in old_mentor.former_apprentices:
+                old_mentor.former_apprentices.append(self)
+            if old_mentor not in self.former_mentor:
+                self.former_mentor.append(old_mentor)
+
+    def update_mentor(self, new_mentor=None):
+        if new_mentor is None:
+            # If not reassigning and current mentor works, leave it
+            if self.mentor and self.is_valid_mentor(self.mentor):
+                return
+        old_mentor = self.mentor
+        # Should only have mentor if alive and some kind of apprentice
+        if 'apprentice' in self.status and not self.dead and not self.exiled:
+            # Need to pick a random mentor if not specified
+            if new_mentor is None:
+                potential_mentors = []
+                priority_mentors = []
+                for cat in self.all_cats.values():
+                    if self.is_valid_mentor(cat):
+                        potential_mentors.append(cat)
+                        if len(cat.apprentice) == 0:
+                            priority_mentors.append(cat)
+                # First try for a cat who currently has no apprentices
+                if len(priority_mentors) > 0:
+                    new_mentor = choice(priority_mentors)
+                elif len(potential_mentors) > 0:
+                    new_mentor = choice(potential_mentors)
+            # Mentor changing to chosen/specified cat
+            self.mentor = new_mentor
+            if new_mentor is not None:
+                if self not in new_mentor.apprentice:
+                    new_mentor.apprentice.append(self)
+                if self in new_mentor.former_apprentices:
+                    new_mentor.former_apprentices.remove(self)
+        else:
+            self.mentor = None
+        # Move from old mentor's apps to former apps
+        if self.status == 'warrior' or self.status == 'medicine cat':
+            self.former_mentor.append(old_mentor)
+            self.mentor = None
+            if old_mentor is not None:
+                if self in old_mentor.apprentice:
+                    old_mentor.apprentice.remove(self)
+                if self not in old_mentor.former_apprentices:
+                    old_mentor.former_apprentices.append(self)
+
+        if old_mentor is not None and old_mentor != self.mentor:
+            if self in old_mentor.apprentice:
+                old_mentor.apprentice.remove(self)
+            if self not in old_mentor.former_apprentices:
+                old_mentor.former_apprentices.append(self)
+            if old_mentor not in self.former_mentor:
+                self.former_mentor.append(old_mentor)
+
 
 # ---------------------------------------------------------------------------- #
 #                                 relationships                                #
@@ -715,7 +978,7 @@ class Cat(object):
             clanname = game.switches['clan_name']
         elif len(game.switches['clan_name']) > 0:
             clanname = game.switches['clan_list'][0]
-        elif game.clan != None:
+        elif game.clan is not None:
             clanname = game.clan.name
         relationship_dir = 'saves/' + clanname + '/relationships'
         if not os.path.exists(relationship_dir):
@@ -770,7 +1033,7 @@ class Cat(object):
                     relationships = []
                     for rel in rel_data:
                         cat_to = self.all_cats.get(rel['cat_to_id'])
-                        if cat_to == None:
+                        if cat_to is None:
                             continue
                         new_rel = Relationship(
                             cat_from=self,
@@ -790,134 +1053,6 @@ class Cat(object):
             except:
                 print(f'There was an error reading the relationship file of cat #{self}.')
 
-# ---------------------------------------------------------------------------- #
-#                                    mentor                                    #
-# ---------------------------------------------------------------------------- #
-
-    def is_valid_med_mentor(self, potential_mentor):
-        # Dead or exiled cats can't be mentors
-        if potential_mentor.dead or potential_mentor.exiled:
-            return False
-        # Match jobs
-        if self.status == 'medicine cat apprentice' and potential_mentor.status == 'medicine cat':
-            return True
-        if self.status == 'medicine cat apprentice' and potential_mentor.status != 'medicine cat':
-            return False
-        # If not an app, don't need a mentor
-        if 'medicine cat apprentice' not in self.status:
-            return False
-        # Dead cats don't need mentors
-        if self.dead:
-            return False
-        return True
-
-    def is_valid_mentor(self, potential_mentor):
-        # Dead or exiled cats can't be mentors
-        if potential_mentor.dead or potential_mentor.exiled:
-            return False
-        # Match jobs
-        if self.status == 'medicine cat apprentice' and potential_mentor.status != 'medicine cat':
-            return False
-        if self.status == 'apprentice' and potential_mentor.status not in [
-                'leader', 'deputy', 'warrior'
-        ]:
-            return False
-        # If not an app, don't need a mentor
-        if 'apprentice' not in self.status:
-            return False
-        # Dead cats don't need mentors
-        if self.dead:
-            return False
-        return True
-
-    def update_med_mentor(self, new_mentor=None):
-        if new_mentor is None:
-            # If not reassigning and current mentor works, leave it
-            if self.mentor and self.is_valid_med_mentor(self.mentor):
-                return
-        old_mentor = self.mentor
-        # Should only have mentor if alive and some kind of apprentice
-        if 'medicine cat apprentice' in self.status and not self.dead and not self.exiled:
-            # Need to pick a random mentor if not specified
-            if new_mentor is None:
-                potential_mentors = []
-                priority_mentors = []
-                for cat in self.all_cats.values():
-                    if self.is_valid_med_mentor(cat):
-                        potential_mentors.append(cat)
-                        if len(cat.apprentice) == 0:
-                            priority_mentors.append(cat)
-                # First try for a cat who currently has no apprentices
-                if len(priority_mentors) > 0:
-                    new_mentor = choice(priority_mentors)
-                elif len(potential_mentors) > 0:
-                    new_mentor = choice(potential_mentors)
-            # Mentor changing to chosen/specified cat
-            self.mentor = new_mentor
-            if new_mentor is not None:
-                if self not in new_mentor.apprentice:
-                    new_mentor.apprentice.append(self)
-                if self in new_mentor.former_apprentices:
-                    new_mentor.former_apprentices.remove(self)
-        else:
-            self.mentor = None
-        # Move from old mentor's apps to former apps
-        if old_mentor is not None and old_mentor != self.mentor:
-            if self in old_mentor.apprentice:
-                old_mentor.apprentice.remove(self)
-            if self not in old_mentor.former_apprentices:
-                old_mentor.former_apprentices.append(self)
-            if old_mentor not in self.former_mentor:
-                self.former_mentor.append(old_mentor)
-
-    def update_mentor(self, new_mentor=None):
-        if new_mentor is None:
-            # If not reassigning and current mentor works, leave it
-            if self.mentor and self.is_valid_mentor(self.mentor):
-                return
-        old_mentor = self.mentor
-        # Should only have mentor if alive and some kind of apprentice
-        if 'apprentice' in self.status and not self.dead and not self.exiled:
-            # Need to pick a random mentor if not specified
-            if new_mentor is None:
-                potential_mentors = []
-                priority_mentors = []
-                for cat in self.all_cats.values():
-                    if self.is_valid_mentor(cat):
-                        potential_mentors.append(cat)
-                        if len(cat.apprentice) == 0:
-                            priority_mentors.append(cat)
-                # First try for a cat who currently has no apprentices
-                if len(priority_mentors) > 0:
-                    new_mentor = choice(priority_mentors)
-                elif len(potential_mentors) > 0:
-                    new_mentor = choice(potential_mentors)
-            # Mentor changing to chosen/specified cat
-            self.mentor = new_mentor
-            if new_mentor is not None:
-                if self not in new_mentor.apprentice:
-                    new_mentor.apprentice.append(self)
-                if self in new_mentor.former_apprentices:
-                    new_mentor.former_apprentices.remove(self)
-        else:
-            self.mentor = None
-        # Move from old mentor's apps to former apps
-        if self.status == 'warrior' or self.status == 'medicine cat':
-            self.former_mentor.append(old_mentor)
-            self.mentor = None
-            if old_mentor is not None:
-                if self in old_mentor.apprentice:
-                    old_mentor.apprentice.remove(self)
-                if self not in old_mentor.former_apprentices:
-                    old_mentor.former_apprentices.append(self)
-
-        if old_mentor is not None and old_mentor != self.mentor:
-            if self in old_mentor.apprentice:
-                old_mentor.apprentice.remove(self)
-            if self not in old_mentor.former_apprentices:
-                old_mentor.former_apprentices.append(self)
-            if old_mentor not in self.former_mentor:
-                self.former_mentor.append(old_mentor)
 
 # ---------------------------------------------------------------------------- #
 #                                  properties                                  #
@@ -952,7 +1087,7 @@ class Cat(object):
             if self._moons in range(self.age_moons[key_age][0], self.age_moons[key_age][1]+1):
                 updated_age = True
                 self.age = key_age
-        if not updated_age and self.age != None:
+        if not updated_age and self.age is not None:
             self.age = "elder"
 
 # ---------------------------------------------------------------------------- #
@@ -974,3 +1109,17 @@ def create_example_cats():
 # CAT CLASS ITEMS
 cat_class = Cat(example=True)
 game.cat_class = cat_class
+
+# ---------------------------------------------------------------------------- #
+#                                load json files                               #
+# ---------------------------------------------------------------------------- #
+
+resource_directory = "resources/dicts/conditions/"
+
+ILLNESSES = None
+with open(f"{resource_directory}Illnesses.json", 'r') as read_file:
+    ILLNESSES = ujson.loads(read_file.read())
+
+INJURIES = None
+with open(f"{resource_directory}Injuries.json", 'r') as read_file:
+    INJURIES = ujson.loads(read_file.read())
