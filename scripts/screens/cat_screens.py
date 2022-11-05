@@ -56,10 +56,24 @@ def accessory_display_name(cat, accessory):
                 collar_color = 'purple'
             elif acc_display.startswith('multi'):
                 collar_color = 'multi'
+            elif acc_display.startswith('white'):
+                collar_color = 'white'
+            elif acc_display.startswith('mint'):
+                collar_color = 'mint'
+            elif acc_display.startswith('grey'):
+                collar_color = 'grey'
+            elif acc_display.startswith('faded'):
+                collar_color = 'aquatic'
+            elif acc_display.startswith('orange'):
+                collar_color = 'orange'
+            elif acc_display.startswith('gradient'):
+                collar_color = 'sunset'
             if acc_display.endswith('bow') and not acc_display == 'rainbow':
                 acc_display = collar_color + ' bow'
             elif acc_display.endswith('bell'):
                 acc_display = collar_color + ' bell collar'
+            elif acc_display.endswith('yarn'):
+                acc_display = collar_color + ' yarn ball'
             else:
                 acc_display = collar_color + ' collar'
 

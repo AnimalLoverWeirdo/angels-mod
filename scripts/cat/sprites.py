@@ -200,6 +200,22 @@ class Sprites(object):
                                f'collarsextra{i}',
                                sprites_y=2)
 
+        for a, i in enumerate(["WHITEYARN", "BLUEYARN", "YELLOWYARN", "PURPLEYARN", "PINKYARN", "MINTYARN"]):
+            sprites.make_group('yarn', (a, 0), f'collars{i}')
+            sprites.make_group('yarnextra', (a, 0),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["GREYYARN", "RAINBOWYARN", "GREENYARN", "REDYARN"]):
+            sprites.make_group('yarn', (a, 1), f'collars{i}')
+            sprites.make_group('yarnextra', (a, 1),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["FADEDYARN", "ORANGEYARN", "GRADIENTYARN"]):
+            sprites.make_group('yarn', (a, 2), f'collars{i}')
+            sprites.make_group('yarnextra', (a, 2),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+
 
 sprites = Sprites(50)
 tiles = Sprites(64)
@@ -229,7 +245,7 @@ for x in [
         'tickedcolors2', 'tickedextra2', 'tortiecolourssolid2', 'tortiecolourstabby2', 'tortiecoloursbengal2', 'tortiecoloursmarbled2',
         'tortiecoloursticked2', 'tortiecolourssmoke2', 'tortiecoloursrosette2', 'tortiecoloursspeckled2',
         'tortiesextrasolid2', 'tortiesextratabby2', 'tortiesextrabengal2', 'tortiesextramarbled2', 'tortiesextraticked2',
-        'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2'
+        'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2', 'yarn', 'yarnextra'
 
 ]:
     sprites.spritesheet(f"sprites/{x}.png", x)

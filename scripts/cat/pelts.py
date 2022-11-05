@@ -553,9 +553,10 @@ collars = [
     "RAINBOWBELL", "BLACKBELL", "SPIKESBELL", "PINKBELL", "PURPLEBELL",
     "MULTIBELL", "CRIMSONBOW", "BLUEBOW", "YELLOWBOW", "CYANBOW", "REDBOW",
     "LIMEBOW", "GREENBOW", "RAINBOWBOW", "BLACKBOW", "SPIKESBOW", "PINKBOW",
-    "PURPLEBOW", "MULTIBOW"
+    "PURPLEBOW", "MULTIBOW", "WHITEYARN", "BLUEYARN", "YELLOWYARN", "PURPLEYARN",
+    "PINKYARN", "MINTYARN", "GREYYARN", "RAINBOWYARN", "GREENYARN", "REDYARN",
+    "FADEDYARN", "ORANGEYARN", "GRADIENTYARN"
 ]
-
 pelt_names_F = ["Spotted", "SingleColour", "SingleColour", "TwoColour", "Tabby", "Tortie", "Calico", "Ghost", "Doberman", "Pinstripe",
     "Tabby", "TwoColour", "Speckled", "Marbled", "Bengal", "Rosette", "Smoke", "Ticked", "Merle", "Abyssinian", "Snowflake", "Clouded"]
 pelt_names_M = ["Spotted", "SingleColour", "SingleColour", "TwoColour", "Tabby", "Tabby", "Speckled", "Ghost", "Doberman", "Pinstripe",
@@ -803,19 +804,19 @@ def describe_color(pelt, tortiecolour, tortiepattern, white_patches):
                 color_name = color_name + ' calico'
         # enough to comment but not make calico
         if white_patches is not None:
-            if white_patches in little_white + mid_white and color_name != 'dark':
+            if white_patches in little_white + mid_white and pelt_colours != 'DARK':
                 color_name = color_name + ' and white'
             # and white
-            elif white_patches in high_white and color_name != 'dark':
+            elif white_patches in high_white and pelt_colours != 'DARK':
                 if pelt.name != "Calico":
                     color_name = color_name + ' and white'
             # white and
-            elif white_patches in mostly_white and color_name != 'dark':
+            elif white_patches in mostly_white and pelt_colours != 'DARK':
                 color_name = 'white and ' + color_name
             # colorpoint
             elif white_patches in point_markings and pelt.name != 'Doberman':
                 color_name = color_name + ' point'
-                if color_name == 'dark ginger point' or color_name == 'ginger point':
+                if color_name == 'dark ginger point' or color_name == 'ginger point' or color_name == 'orange point' or color_name == 'apricot point':
                     color_name = 'flame point'
             # vitiligo
             elif white_patches in vit:
