@@ -10,7 +10,7 @@ except:
 from sys import exit
 
 
-class Clan():
+class Clan(object):
     leader_lives = 0
     clan_cats = []
     starclan_cats = []
@@ -357,7 +357,7 @@ class Clan():
         game.switches['error_message'] = ''
 
     def load_pregnancy(self, clan):
-        if not game.clan.name:
+        if game.clan.name == False:
             return
         file_path = f"saves/{game.clan.name}/pregnancy.json"
         if os.path.exists(file_path):
@@ -367,7 +367,7 @@ class Clan():
             clan.pregnancy_data = {}
 
     def save_pregnancy(self, clan):
-        if not game.clan.name:
+        if game.clan.name == False:
             return
         file_path = f"saves/{game.clan.name}/pregnancy.json"
         try:
@@ -377,7 +377,7 @@ class Clan():
         except:
             print(f"Saving the pregnancy data didn't work.")
 
-class OtherClan():
+class OtherClan(object):
 
     def __init__(self, name='', relations=0, temperament=''):
         self.name = name or choice(names.normal_prefixes)
@@ -392,7 +392,7 @@ class OtherClan():
         return f"{self.name}Clan"
 
 
-class StarClan():
+class StarClan(object):
     forgotten_stages = {
         0: [0, 100],
         10: [101, 200],

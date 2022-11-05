@@ -1,3 +1,5 @@
+import ujson
+
 from scripts.game_structure.game_essentials import game
 
 
@@ -24,7 +26,7 @@ def medical_cats_condition_fulfilled(number_medicine_cats, number_medicine_appre
 #                                    Illness                                   #
 # ---------------------------------------------------------------------------- #
 
-class Illness():
+class Illness(object):
     def _init_(self, 
             name, 
             mortality, 
@@ -77,7 +79,7 @@ class Illness():
 #                                   Injuries                                   #
 # ---------------------------------------------------------------------------- #
 
-class Injury():
+class Injury(object):
     def _init_(self, 
             name,
             duration,
