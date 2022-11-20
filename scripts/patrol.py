@@ -9,6 +9,9 @@ from scripts.cat.pelts import *
 # ---------------------------------------------------------------------------- #
 #                              PATROL CLASS START                              #
 # ---------------------------------------------------------------------------- #
+"""
+When adding new patrols, use \n to add a paragraph break in the text
+"""
 
 class Patrol():
 
@@ -256,7 +259,7 @@ class Patrol():
                     10,
                     win_skills=['very smart', 'extremely smart']),
                 PatrolEvent(
-                    116,
+                    117,
                     'While helping gathering herbs, r_c stumbles upon a bush of red berries',
                     'Yum! r_c recognizes them as strawberries and shares the tasty treat with the patrol',
                     'The patrol scolds r_c for wasting time munching on berries',
@@ -672,11 +675,13 @@ class Patrol():
             self.handle_exp_gain()
             self.add_new_cats()
             self.handle_clan_relations(difference = int(1))
+            self.handle_mentor_app_pairing()
         else:
             self.success = False
             self.handle_deaths()
             self.handle_scars()
             self.handle_clan_relations(difference = int(-1))
+            self.handle_mentor_app_pairing()
 
     def calculate_success_antagonize(self):
             if self.patrol_event is None:
@@ -717,7 +722,7 @@ class Patrol():
 
     def handle_deaths(self):
         if self.patrol_event.patrol_id in [
-                108, 113, 114, 120, 141, 250, 305, 307, 802, 803, 804
+                108, 113, 114, 120, 141, 250, 305, 307, 802, 803, 804, 116
         ]:
             if self.patrol_random_cat.status == 'leader':
                 if self.patrol_event.patrol_id in [108, 113]:
@@ -738,28 +743,35 @@ class Patrol():
             if self.patrol_random_cat.specialty is None:
                 self.patrol_random_cat.specialty = choice(
                     [choice(scars1),
-                     choice(scars2),
-                     choice(scars4)])
+                     choice(scars2)])
+                self.patrol_random_cat.scar_event.append(
+                    f'{self.patrol_random_cat.name} gained a scar while on patrol.')
             elif self.patrol_random_cat.specialty2 is None:
                 self.patrol_random_cat.specialty2 = choice(
                     [choice(scars1),
-                     choice(scars2),
-                     choice(scars4)])
-        elif self.patrol_event.patrol_id == 102:
-            self.patrol_random_cat.skill = choice(
-                ['paralyzed', 'blind', 'missing a leg'])
-            if game.settings['retirement']:
-                self.patrol_random_cat.status_change('elder')
+                     choice(scars2)])
+                self.patrol_random_cat.scar_event.append(
+                    f'{self.patrol_random_cat.name} gained a scar while on patrol.')
         elif self.patrol_event.patrol_id == 904:
             if self.patrol_random_cat.specialty is None:
-                self.patrol_random_cat.specialty = choice([choice(scars5)])
+                self.patrol_random_cat.specialty = "SNAKE"
+                self.patrol_random_cat.scar_event.append(
+                    f'{self.patrol_random_cat.name} gained a scar while on patrol.')
             elif self.patrol_random_cat.specialty2 is None:
-                self.patrol_random_cat.specialty2 = choice([choice(scars5)])
+                self.patrol_random_cat.specialty2 = "SNAKE"
+                self.patrol_random_cat.scar_event.append(
+                    f'{self.patrol_random_cat.name} gained a scar while on patrol.')
 
     def handle_retirements(self):
-        if self.patrol_event.patrol_id == 102 and game.settings.get(
-                'retirement'):
+        if game.settings['retirement'] and self.patrol_random_cat.status != 'leader':
             self.patrol_random_cat.status_change('elder')
+            self.patrol_random_cat.scar_event.append(
+                f'{self.patrol_random_cat.name} retired after being hit by a monster.')
+        else:
+            self.patrol_random_cat.skill = choice(
+                ['paralyzed', 'blind', 'missing a leg'])
+            self.patrol_random_cat.scar_event.append(
+                f'{self.patrol_random_cat.name} is hit by a car and is now {self.patrol_random_cat.skill}.')
 
     def handle_clan_relations(self, difference):
         other_clan = patrol.other_clan
@@ -771,6 +783,11 @@ class Patrol():
             else:
                 clan_relations += difference
         game.clan.all_clans[otherclan].relations = clan_relations
+
+    def handle_mentor_app_pairing(self):
+        for cat in self.patrol_cats:
+            if cat.mentor in self.patrol_cats:
+                cat.patrol_with_mentor += 1
 
     def handle_relationships(self):
         romantic_love = 0
@@ -815,7 +832,7 @@ class Patrol():
         for cat in self.patrol_cats:
             relationships = list(
                 filter(lambda rel: rel.cat_to.ID in cat_ids,
-                       cat.relationships))
+                       list(cat.relationships.values())))
             for rel in relationships:
                 if self.success:
                     rel.romantic_love += romantic_love
@@ -843,9 +860,8 @@ class Patrol():
                 the_cat = Cat.all_cats.get(cat_id)
                 if the_cat.dead or the_cat.exiled:
                     continue
-                the_cat.relationships.append(Relationship(the_cat, kit))
-                relationships.append(Relationship(kit, the_cat))
-            kit.relationships = relationships
+                the_cat.relationships[kit.ID] = Relationship(the_cat, kit)
+                kit.relationships[the_cat.ID] = Relationship(kit, the_cat)
             game.clan.add_cat(kit)
             new_backstory = choice(['abandoned1', 'abandoned2', 'abandoned3'])
             kit.backstory = new_backstory
@@ -859,8 +875,8 @@ class Patrol():
                 'apprentice', 'warrior', 'warrior', 'warrior', 'warrior',
                 'elder'
             ])
-            new_backstory = choice(['loner1', 'loner2', 'rogue1', 'rogue2', 
-            'ostracized_warrior', 'disgraced', 'retired_leader', 'refugee', 'tragedy_survivor'])
+            new_backstory = choice(['loner1', 'loner2', 'rogue1', 'rogue2',
+                                    'ostracized_warrior', 'disgraced', 'retired_leader', 'refugee', 'tragedy_survivor'])
             if self.patrol_event.patrol_id == 501:
                 new_status = 'warrior'
             kit = Cat(status=new_status)
@@ -872,9 +888,8 @@ class Patrol():
                 the_cat = Cat.all_cats.get(cat_id)
                 if the_cat.dead or the_cat.exiled:
                     continue
-                the_cat.relationships.append(Relationship(the_cat, kit))
-                relationships.append(Relationship(kit, the_cat))
-            kit.relationships = relationships
+                the_cat.relationships[kit.ID] = Relationship(the_cat, kit)
+                kit.relationships[the_cat.ID] = Relationship(kit, the_cat)
             game.clan.add_cat(kit)
             kit.backstory = new_backstory
             kit.thought = 'Is looking around the camp with wonder'
@@ -894,21 +909,16 @@ class Patrol():
                     kit2.parent1 = kit.ID
                     kit2.thought = 'Is looking around the camp with wonder'
                     #create and update relationships
-                    relationships = []
                     for cat_id in game.clan.clan_cats:
                         the_cat = Cat.all_cats.get(cat_id)
                         if the_cat.dead or the_cat.exiled:
                             continue
                         if the_cat.ID in [kit2.parent1, kit2.parent2]:
-                            the_cat.relationships.append(
-                                Relationship(the_cat, kit2, False, True))
-                            relationships.append(
-                                Relationship(kit2, the_cat, False, True))
+                            the_cat.relationships[kit2.ID] = Relationship(the_cat, kit2, False, True)
+                            kit2.relationships[the_cat.ID] = Relationship(kit2, the_cat, False, True)
                         else:
-                            the_cat.relationships.append(
-                                Relationship(the_cat, kit2))
-                            relationships.append(Relationship(kit2, the_cat))
-                    kit2.relationships = relationships
+                            the_cat.relationships[kit2.ID] = Relationship(the_cat, kit2)
+                            kit2.relationships[the_cat.ID] = Relationship(kit2, the_cat)
                     game.clan.add_cat(kit2)
 
         elif self.patrol_event.patrol_id in [502, 503, 520]:  # new kittypet
@@ -923,9 +933,8 @@ class Patrol():
                 the_cat = Cat.all_cats.get(cat_id)
                 if the_cat.dead or the_cat.exiled:
                     continue
-                the_cat.relationships.append(Relationship(the_cat, kit))
-                relationships.append(Relationship(kit, the_cat))
-            kit.relationships = relationships
+                the_cat.relationships[kit.ID] = Relationship(the_cat, kit)
+                kit.relationships[the_cat.ID] = Relationship(kit, the_cat)
             game.clan.add_cat(kit)
             if (kit.status == 'elder'):
                 kit.moons = randint(120, 150)
@@ -954,9 +963,8 @@ class Patrol():
                 the_cat = cat_class.all_cats.get(cat_id)
                 if the_cat.dead or the_cat.exiled:
                     continue
-                the_cat.relationships.append(Relationship(the_cat, kit))
-                relationships.append(Relationship(kit, the_cat))
-            kit.relationships = relationships
+                the_cat.relationships[kit.ID] = Relationship(the_cat, kit)
+                kit.relationships[the_cat.ID] = Relationship(kit, the_cat)
             game.clan.add_cat(kit)
             add_siblings_to_cat(kit, cat_class)
             add_children_to_cat(kit, cat_class)
@@ -967,7 +975,7 @@ class Patrol():
             if (kit.status == 'elder'):
                 kit.moons = randint(120, 150)
             if randint(0, 5) == 0 and kit.backstory not in ['medicine_cat', 'disgraced']:  # chance to keep name
-                kit.name.prefix = choice(names.loner_names)
+                # kit.name.prefix = choice(names.loner_names)
                 kit.name.suffix = ''
             elif randint(0, 3) == 0 and kit.backstory not in ['medicine_cat', 'disgraced']:
                 kit.name.prefix = choice(names.loner_names)

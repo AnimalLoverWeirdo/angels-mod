@@ -45,6 +45,9 @@ def json_load():
         new_cat.moons = cat["moons"]
         new_cat.trait = cat["trait"]
         new_cat.mentor = cat["mentor"]
+        new_cat.former_mentor = cat["former_mentor"] if "former_mentor" in cat else []
+        new_cat.patrol_with_mentor = cat["patrol_with_mentor"] if "patrol_with_mentor" in cat else 0
+        new_cat.mentor_influence = cat["mentor_influence"] if "mentor_influence" in cat else []
         new_cat.paralyzed = cat["paralyzed"]
         new_cat.no_kits = cat["no_kits"]
         new_cat.exiled = cat["exiled"]
@@ -73,6 +76,8 @@ def json_load():
         new_cat.dead_for = cat["dead_moons"]
         new_cat.apprentice = cat["current_apprentice"]
         new_cat.former_apprentices = cat["former_apprentices"]
+        new_cat.scar_event = cat["scar_event"] if "scar_event" in cat else []
+        new_cat.df = cat["df"] if "df" in cat else False
         all_cats.append(new_cat)
 
     # replace cat ids with cat objects and add other needed variables
@@ -86,15 +91,26 @@ def json_load():
             game.switches[
                 'error_message'] = f'There was an error when relationships for cat #{cat} are created.'
             if cat.relationships is not None and len(cat.relationships) < 1:
-                cat.create_new_relationships()
+                cat.create_all_relationships()
         else:
-            cat.relationships = []
+            cat.relationships = {}
+
         # replace mentor id with cat instance
         mentor_relevant = list(
             filter(lambda inter_cat: inter_cat.ID == cat.mentor, all_cats))
         cat.mentor = None
         if len(mentor_relevant) == 1:
             cat.mentor = mentor_relevant[0]
+
+        if len(cat.former_mentor) > 0:
+            old_mentors = []
+            for cat_id in cat.former_mentor:
+                relevant_list = list(
+                    filter(lambda cat: cat.ID == cat_id, all_cats)
+                )
+                if len(relevant_list) > 0:
+                    old_mentors.append(relevant_list[0])
+            cat.former_mentor = old_mentors
 
         # update the apprentice
         if len(cat.apprentice) > 0:
@@ -106,6 +122,7 @@ def json_load():
                     # if the cat can't be found, drop the cat_id
                     new_apprentices.append(relevant_list[0])
             cat.apprentice = new_apprentices
+
         # update the apprentice
         if len(cat.former_apprentices) > 0:
             new_apprentices = []
@@ -315,7 +332,6 @@ def csv_load(all_cats):
                 the_cat = all_cats.get(id)
                 game.switches[
                     'error_message'] = f'There was an error when relationships for cat #{the_cat} are created.'
-                if the_cat.relationships is not None and len(
-                        the_cat.relationships) < 1:
-                    the_cat.create_new_relationships()
+                if the_cat.relationships is not None and len(the_cat.relationships) < 1:
+                    the_cat.create_all_relationships()
         game.switches['error_message'] = ''

@@ -2,7 +2,7 @@ import pygame
 
 from scripts.game_structure.game_essentials import *
 
-class Sprites(object):
+class Sprites():
 
     def __init__(self, original_size, new_size=None):
         self.size = original_size  # size of a single sprite in a spritesheet
@@ -106,6 +106,12 @@ class Sprites(object):
         self.make_group('Newscarsextra', (3, 2), 'scarsextraHALFTAIL', sprites_y=2)
         self.make_group('Newscars', (4, 2), 'scarsNOPAW')
         self.make_group('Newscarsextra', (4, 2), 'scarsextraNOPAW', sprites_y=2)
+        self.make_group('Newscars', (0, 2), 'scarsLEGBITE')
+        self.make_group('Newscarsextra', (0, 2), 'scarsextraLEGBITE', sprites_y=2)
+        self.make_group('Newscars', (1, 2), 'scarsNECKBITE')
+        self.make_group('Newscarsextra', (1, 2), 'scarsextraNECKBITE', sprites_y=2)
+        self.make_group('Newscars', (2, 2), 'scarsFACE')
+        self.make_group('Newscarsextra', (2, 2), 'scarsextraFACE', sprites_y=2)
         
         for a, i in enumerate(
             ["TAILSCAR", "SNOUT", "CHEEK", "SIDE", "THROAT", "TAILBASE"]):
@@ -117,14 +123,7 @@ class Sprites(object):
             sprites.make_group('Newscars', (a, 1), f'scars{i}')
             sprites.make_group('Newscarsextra', (a, 1),
                                f'scarsextra{i}',
-                               sprites_y=2)
-        for a, i in enumerate(
-            ["LEGBITE", "NECKBITE", "FACE"]):
-            sprites.make_group('Newscars', (a, 2), f'scars{i}')
-            sprites.make_group('Newscarsextra', (a, 2),
-                               f'scarsextra{i}',
-                               sprites_y=2)
-        
+                               sprites_y=2)        
                                
         # Accessories
         for a, i in enumerate([
@@ -245,7 +244,7 @@ for x in [
         'tickedcolors2', 'tickedextra2', 'tortiecolourssolid2', 'tortiecolourstabby2', 'tortiecoloursbengal2', 'tortiecoloursmarbled2',
         'tortiecoloursticked2', 'tortiecolourssmoke2', 'tortiecoloursrosette2', 'tortiecoloursspeckled2',
         'tortiesextrasolid2', 'tortiesextratabby2', 'tortiesextrabengal2', 'tortiesextramarbled2', 'tortiesextraticked2',
-        'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2', 'yarn', 'yarnextra'
+        'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2', 'yarn', 'yarnextra', 'lineartdf', 'eyes_df', 'eyesextra_df'
 
 ]:
     sprites.spritesheet(f"sprites/{x}.png", x)
@@ -270,6 +269,8 @@ sprites.make_group('Paralyzed_lineart', (0, 0),
                    sprites_y=1)
 sprites.make_group('shaders', (0, 0), 'shaders', sprites_y=5)
 sprites.make_group('lineartdead', (0, 0), 'lineartdead', sprites_y=5)
+sprites.make_group('lineartdf', (0, 0), 'lineartdf', sprites_y=5)
+
 
 for a, i in enumerate(
     ['YELLOW', 'AMBER', 'HAZEL', 'PALEGREEN', 'GREEN', 'BLUE']):

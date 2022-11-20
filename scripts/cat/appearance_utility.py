@@ -7,114 +7,114 @@ from .pelts import *
 def plural_acc_names(accessory, plural, singular):
     acc_display = accessory.lower()
     if acc_display == 'maple leaf':
-        if plural == True:
+        if plural:
             acc_display = 'maple leaves'
-        if singular == True:
+        if singular:
             acc_display = 'maple leaf'
     elif acc_display == 'holly':
-        if plural == True:
+        if plural:
             acc_display = 'holly berries'
-        if singular == True:
+        if singular:
             acc_display = 'holly berry'
     elif acc_display == 'blue berries':
-        if plural == True:
+        if plural:
             acc_display = 'blueberries'
-        if singular == True:
+        if singular:
             acc_display = 'blueberry'
     elif acc_display == 'forget me nots':
-        if plural == True:
+        if plural:
             acc_display = 'forget me nots'
-        if singular == True:
+        if singular:
             acc_display = 'forget me not flower'
     elif acc_display == 'rye stalk':
-        if plural == True:
+        if plural:
             acc_display = 'rye stalks'
-        if singular == True:
+        if singular:
             acc_display = 'rye stalk'
     elif acc_display == 'laurel':
-        if plural == True:
+        if plural:
             acc_display = 'laurel'
-        if singular == True:
+        if singular:
             acc_display = 'laurel plant'
     elif acc_display == 'bluebells':
-        if plural == True:
+        if plural:
             acc_display = 'bluebells'
-        if singular == True:
+        if singular:
             acc_display = 'bluebell flower'
     elif acc_display == 'nettle':
-        if plural == True:
+        if plural:
             acc_display = 'nettles'
-        if singular == True:
+        if singular:
             acc_display = 'nettle'
     elif acc_display == 'poppy':
-        if plural == True:
+        if plural:
             acc_display = 'poppies'
-        if singular == True:
+        if singular:
             acc_display = 'poppy flower'
     elif acc_display == 'lavender':
-        if plural == True:
+        if plural:
             acc_display = 'lavender'
-        if singular == True:
+        if singular:
             acc_display = 'lavender flower'
     elif acc_display == 'herbs':
-        if plural == True:
+        if plural:
             acc_display = 'herbs'
-        if singular == True:
+        if singular:
             acc_display = 'herb'
     elif acc_display == 'petals':
-        if plural == True:
+        if plural:
             acc_display = 'petals'
-        if singular == True:
+        if singular:
             acc_display = 'petal'
     elif acc_display == 'dry herbs':
-        if plural == True:
+        if plural:
             acc_display = 'dry herbs'
-        if singular == True:
+        if singular:
             acc_display = 'dry herb'
     elif acc_display == 'oak leaves':
-        if plural == True:
+        if plural:
             acc_display = 'oak leaves'
-        if singular == True:
+        if singular:
             acc_display = 'oak leaf'
     elif acc_display == 'catmint':
-        if plural == True:
+        if plural:
             acc_display = 'catnip'
-        if singular == True:
+        if singular:
             acc_display = 'catnip sprig'
     elif acc_display == 'maple seed':
-        if plural == True:
+        if plural:
             acc_display = 'maple seeds'
-        if singular == True:
+        if singular:
             acc_display = 'maple seed'
     elif acc_display == 'juniper':
-        if plural == True:
+        if plural:
             acc_display = 'juniper berries'
-        if singular == True:
+        if singular:
             acc_display = 'juniper berry'
     elif acc_display == 'red feathers':
-        if plural == True:
+        if plural:
             acc_display = 'cardinal feathers'
-        if singular == True:
+        if singular:
             acc_display = 'cardinal feather'
     elif acc_display == 'blue feathers':
-        if plural == True:
+        if plural:
             acc_display = 'crow feathers'
-        if singular == True:
+        if singular:
             acc_display = 'crow feather'
     elif acc_display == 'jay feathers':
-        if plural == True:
+        if plural:
             acc_display = 'jay feathers'
-        if singular == True:
+        if singular:
             acc_display = 'jay feather'
     elif acc_display == 'moth wings':
-        if plural == True:
+        if plural:
             acc_display = 'moth wings'
-        if singular == True:
+        if singular:
             acc_display = 'moth wing'
     elif acc_display == 'cicada wings':
-        if plural == True:
+        if plural:
             acc_display = 'cicada wings'
-        if singular == True:
+        if singular:
             acc_display = 'cicada wing'
 
     if plural is True and singular is False:
@@ -127,7 +127,7 @@ def plural_acc_names(accessory, plural, singular):
 # ---------------------------------------------------------------------------- #
 
 def init_eyes(cat):
-    if cat.eye_colour != None:
+    if cat.eye_colour is not None:
         return
     hit = randint(0, 200)
     if hit == 1:
@@ -170,7 +170,7 @@ def init_pelt(cat):
             cat.pelt.colour = choice(["WHITE", "PALEGREY", "SILVER", "GREY", "DARKGREY", "BLACK", "PALEGINGER", "GOLDEN", "GINGER", "DARKGINGER", "LIGHTBROWN", "BROWN", "DARKBROWN"])
 
 def init_sprite(cat):
-    if cat.pelt == None:
+    if cat.pelt is None:
         init_pelt(cat)
     cat.age_sprites = {
         'kitten': randint(0, 2),
@@ -198,17 +198,11 @@ def init_scars(cat):
         cat.specialty = choice([
             choice(scars1),
             choice(scars2),
-            choice(scars4),
-            choice(scars5)
+            choice(scars3)
         ])
     else:
         cat.specialty = None
-
-    if cat.specialty == 'NOTAIL':
-        if cat.specialty2 == 'HALFTAIL':
-            cat.specialty2 = None
-        else:
-            pass
+        
     scar_choice2 = randint(0, 30)
     if cat.age in ['kitten', 'adolescent']:
         scar_choice2 = randint(0, 100)
@@ -218,13 +212,13 @@ def init_scars(cat):
         cat.specialty2 = choice([
             choice(scars1),
             choice(scars2),
-            choice(scars4),
-            choice(scars5)
+            choice(scars3)
         ])
     else:
         cat.specialty2 = None
-    if cat.specialty2 == 'NOTAIL' and cat.specialty == 'HALFTAIL':
-        cat.specialty == None
+    if cat.specialty2 == 'NOTAIL':
+        if cat.specialty == 'HALFTAIL':
+            cat.specialty = None
 
 def init_accessories(cat):
     acc_display_choice = randint(0, 35)
@@ -245,37 +239,55 @@ def init_pattern(cat):
         init_pelt(cat)
     if cat.pelt.name in ['Calico', 'Tortie']:
         cat.tortiecolour = cat.pelt.colour
-        cat.tortiebase = choice(['single', 'tabby', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette', 'speckled', 'pinstripe', 'doberman', 'ghost', 'clouded', 'merle', 'abyssinian', 'snowflake', 'spotted'])
-        cat.tortiepattern = choice(['tortietabby', 'tortiebengal', 'tortiemarbled', 'tortieticked', 'tortiesmoke', 'tortierosette', 'tortiespeckled', 'tortiepinstripe', 'tortieghost', 'tortieclouded', 'tortiemerle', 'tortiesnowflake'])
+        cat.tortiebase = choice(['single', 'tabby', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette', 'speckled',
+                                 'pinstripe', 'doberman', 'ghost', 'clouded', 'merle', 'abyssinian', 'snowflake', 'spotted'])
+        cat.tortiepattern = choice(['tortietabby', 'tortiebengal', 'tortiemarbled', 'tortieticked', 'tortiesmoke',
+                                    'tortierosette', 'tortiespeckled', 'tortiepinstripe', 'tortieghost', 'tortieclouded',
+                                    'tortiemerle', 'tortiesnowflake'])
     else:
         cat.tortiecolour = None
         cat.tortiebase = None
         cat.tortiepattern = None
     if cat.pelt.name in ['Calico', 'Tortie'] and cat.pelt.colour != None:
         if cat.pelt.colour in ["BLACK", "DARKBROWN", "BLACK2", "CHOCOLATE", "DARK"]:
-                cat.pattern = choice(['GOLDONE', 'GOLDTWO', 'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO', 'GINGERTHREE', 'GINGERFOUR',
-                                      'DARKONE', 'DARKTWO', 'DARKTHREE', 'DARKFOUR', 'ORANGEONE', 'ORANGETWO', 'ORANGETHREE', 'ORANGEFOUR'])
+                cat.pattern = choice(['GOLDONE', 'GOLDTWO', 'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO',
+                                      'GINGERTHREE', 'GINGERFOUR',
+                                      'DARKONE', 'DARKTWO', 'DARKTHREE', 'DARKFOUR', 'ORANGEONE', 'ORANGETWO',
+                                      'ORANGETHREE', 'ORANGEFOUR'])
         elif cat.pelt.colour in ["DARKGREY", "BROWN", "BLUE", "CINNAMON"]:
-            cat.pattern = choice(['GOLDONE', 'GOLDTWO', 'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO', 'GINGERTHREE', 'GINGERFOUR',
-                                  'ORANGEONE', 'ORANGETWO', 'ORANGETHREE', 'ORANGEFOUR', 'APRICOTONE', 'APRICOTTWO', 'APRICOTTHREE', 'APRICOTFOUR'])
+            cat.pattern = choice(['GOLDONE', 'GOLDTWO', 'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO', 'GINGERTHREE',
+                                  'GINGERFOUR',
+                                  'ORANGEONE', 'ORANGETWO', 'ORANGETHREE', 'ORANGEFOUR', 'APRICOTONE', 'APRICOTTWO',
+                                  'APRICOTTHREE', 'APRICOTFOUR'])
         elif cat.pelt.colour in ["SILVER", "GREY", "LIGHTBROWN", "LILAC", "FAWN", "CARAMEL"]:
-            cat.pattern = choice(['PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'PALEONE2', 'PALETWO2', 'PALETHREE2', 'PALEFOUR2',
-                                  'CREAMONE', 'CREAMTWO', 'CREAMTHREE', 'CREAMFOUR', 'CREAMONE2', 'CREAMTWO2', 'CREAMTHREE2', 'CREAMFOUR2', 'APRICOTONE', 'APRICOTTWO', 'APRICOTTHREE', 'APRICOTFOUR'])
+            cat.pattern = choice(['PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'PALEONE2', 'PALETWO2', 'PALETHREE2',
+                                  'PALEFOUR2',
+                                  'CREAMONE', 'CREAMTWO', 'CREAMTHREE', 'CREAMFOUR', 'CREAMONE2', 'CREAMTWO2',
+                                  'CREAMTHREE2', 'CREAMFOUR2', 'APRICOTONE', 'APRICOTTWO', 'APRICOTTHREE',
+                                  'APRICOTFOUR'])
     if cat.tortiepattern in ['tortiepinstripe', 'tortieghost', 'tortieclouded', 'tortiemerle', 'tortiesnowflake']:
-        cat.pattern = choice(['GOLDONE', 'GOLDTWO', 'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO', 'GINGERTHREE', 'GINGERFOUR', 'PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'DARKONE', 'DARKTWO', 'DARKTHREE', 'DARKFOUR'])
+        cat.pattern = choice(['GOLDONE', 'GOLDTWO', 'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO', 'GINGERTHREE',
+                              'GINGERFOUR', 'PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'DARKONE', 'DARKTWO',
+                              'DARKTHREE', 'DARKFOUR'])
     if cat.pelt in ['pinstripe', 'doberman', 'ghost', 'clouded', 'merle', 'abyssinian', 'snowflake']:
-        cat.pelt.colour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN", "WHITE", "PALEGREY", "PALEGINGER", "GINGER", "DARKGINGER", "GOLDEN"])
+        cat.pelt.colour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN",
+                                  "WHITE", "PALEGREY", "PALEGINGER", "GINGER", "DARKGINGER", "GOLDEN"])
     if cat.pelt in ['spotted']:
-        cat.pelt.colour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN", "WHITE", "PALEGREY", "PALEGINGER", "GINGER", "DARKGINGER", "GOLDEN"])
-    if cat.pelt.name in ['Calico', 'Tortie'] and cat.tortiebase in ['pinstripe', 'doberman', 'ghost', 'clouded', 'merle', 'abyssinian', 'snowflake']:
+        cat.pelt.colour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN",
+                                  "WHITE", "PALEGREY", "PALEGINGER", "GINGER", "DARKGINGER", "GOLDEN"])
+    if cat.pelt.name in ['Calico', 'Tortie'] and cat.tortiebase in ['pinstripe', 'doberman', 'ghost', 'clouded',
+                                                                    'merle', 'abyssinian', 'snowflake']:
         cat.tortiecolour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN"])
     if cat.pelt.name in ['Calico', 'Tortie'] and cat.tortiebase in ['spotted']:
         cat.tortiecolour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN"])
     if cat.pelt in ['single', 'tabby', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette', 'speckled']:
-        cat.pelt.colour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN", "WHITE", "PALEGREY", "PALEGINGER", "GINGER", "DARKGINGER", "GOLDEN", "WHITE2", "BLUE", "CARAMEL", "LILAC", "DARK", "BLACK2", "PALE", "APRICOT", "CREAM", "ORANGE", "FAWN", "CINNAMON", "CHOCOLATE", "CREAM2"])
+        cat.pelt.colour = choice(["BLACK", "DARKBROWN", "DARKGREY", "BROWN", "SILVER", "GREY", "LIGHTBROWN",
+                                  "WHITE", "PALEGREY", "PALEGINGER", "GINGER", "DARKGINGER", "GOLDEN", "WHITE2",
+                                  "BLUE", "CARAMEL", "LILAC", "DARK", "BLACK2", "PALE", "APRICOT", "CREAM",
+                                  "ORANGE", "FAWN", "CINNAMON", "CHOCOLATE", "CREAM2"])
 
 def init_white_patches(cat):
-    if cat.pelt == None:
+    if cat.pelt is None:
         init_pelt(cat)
     non_white_pelt = False
     if cat.pelt.colour != 'WHITE' and cat.pelt.name in\
@@ -309,7 +321,7 @@ def init_white_patches(cat):
                     cat.white_patches = choice([None] + little_white_poss + mid_white_poss + high_white_poss + mostly_white_poss)
                 elif par1.white_patches in mostly_white:
                     cat.white_patches = choice(mid_white + high_white + mostly_white + ['FULLWHITE'])
-            if par1.white_patches == None and cat.pelt.name == 'Calico':
+            if par1.white_patches is None and cat.pelt.name == 'Calico':
                 cat.pelt.name = 'Tortie'
             # two parents
         elif cat.parent1 is not None and cat.parent2 is not None and\
@@ -454,7 +466,7 @@ def init_white_patches(cat):
                 else:
                     cat.white_patches = None
         # just making sure no cats end up with no white patches and true white            
-        if cat.white_patches == None:
+        if cat.white_patches is None:
             cat.white = False
     else:
         cat.white_patches = None

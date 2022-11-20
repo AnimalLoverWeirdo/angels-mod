@@ -74,8 +74,9 @@ def get_amount_of_cats_with_relation_value_towards(cat, value, all_cats):
     }
 
     for inter_cat in all_cats:
-        relation = list(filter(lambda r: r.cat_to.ID == cat.ID, inter_cat.relationships))
-        if len(relation) < 1:
+        if cat.ID in inter_cat.relationships:
+            relation = inter_cat.relationships[cat.ID]
+        else:
             continue
         
         relation = relation[0]
@@ -99,6 +100,7 @@ def get_amount_of_cats_with_relation_value_towards(cat, value, all_cats):
 
     return return_dict
 
+
 def add_siblings_to_cat(cat, cat_class):
     """Iterate over all current cats and add the ID to the current cat."""
     for inter_cat in cat_class.all_cats.values():
@@ -107,6 +109,7 @@ def add_siblings_to_cat(cat, cat_class):
         if cat.is_sibling(inter_cat) and cat.ID not in inter_cat.siblings:
             inter_cat.siblings.append(cat.ID)
 
+
 def add_children_to_cat(cat, cat_class):
     """Iterate over all current cats and add the ID to the current cat."""
     for inter_cat in cat_class.all_cats.values():
@@ -114,6 +117,7 @@ def add_children_to_cat(cat, cat_class):
             cat.children.append(inter_cat.ID)
         if inter_cat.is_parent(inter_cat) and cat.ID not in inter_cat.children:
             inter_cat.children.append(cat.ID)
+
 
 # ---------------------------------------------------------------------------- #
 #                                    Sprites                                   #
@@ -209,19 +213,11 @@ def update_sprite(cat):
             new_sprite.blit(
                 sprites.sprites['scarsextra' + cat.specialty2 +
                                 str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty in scars4:
+        if cat.specialty in scars3:
             new_sprite.blit(
                 sprites.sprites['scarsextra' + cat.specialty +
                                 str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty2 in scars4:
-            new_sprite.blit(
-                sprites.sprites['scarsextra' + cat.specialty2 +
-                                str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty in scars5:
-            new_sprite.blit(
-                sprites.sprites['scarsextra' + cat.specialty +
-                                str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty2 in scars5:
+        if cat.specialty2 in scars3:
             new_sprite.blit(
                 sprites.sprites['scarsextra' + cat.specialty2 +
                                 str(cat.age_sprites[cat.age])], (0, 0))
@@ -237,19 +233,11 @@ def update_sprite(cat):
             new_sprite.blit(
                 sprites.sprites['scars' + cat.specialty2 +
                                 str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty in scars4:
+        if cat.specialty in scars3:
             new_sprite.blit(
                 sprites.sprites['scars' + cat.specialty +
                                 str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty2 in scars4:
-            new_sprite.blit(
-                sprites.sprites['scars' + cat.specialty2 +
-                                str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty in scars5:
-            new_sprite.blit(
-                sprites.sprites['scars' + cat.specialty +
-                                str(cat.age_sprites[cat.age])], (0, 0))
-        if cat.specialty2 in scars5:
+        if cat.specialty2 in scars3:
             new_sprite.blit(
                 sprites.sprites['scars' + cat.specialty2 +
                                 str(cat.age_sprites[cat.age])], (0, 0))
@@ -284,6 +272,18 @@ def update_sprite(cat):
             new_sprite.blit(
                 sprites.sprites['lines' + str(cat.age_sprites[cat.age])],
                 (0, 0))
+    elif cat.df:
+        if cat.pelt.length == 'long' and cat.status not in [
+                'kitten', 'apprentice', 'medicine cat apprentice'
+        ] or cat.age == 'elder':
+            new_sprite.blit(
+                sprites.sprites['lineartdf' +
+                                str(cat.age_sprites[cat.age] + 9)],
+                (0, 0))
+        else:
+            new_sprite.blit(
+                sprites.sprites['lineartdf' +
+                                str(cat.age_sprites[cat.age])], (0, 0))
     elif cat.dead:
         if cat.pelt.length == 'long' and cat.status not in [
                 'kitten', 'apprentice', 'medicine cat apprentice'
