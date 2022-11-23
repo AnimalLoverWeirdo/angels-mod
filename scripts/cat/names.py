@@ -266,7 +266,6 @@ class Name():
         'SAGE': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsley', 'Grass', 'Leaf', 'Forest', 'Sage', 'Serene'],
         'PALEBLUE': ['Blue', 'Sky', 'Moon', 'Borage', 'Splash', 'Pale', 'Serene', 'Cloud', 'Sapphire', 'Stream', 'River', 'Jay', 'Feather', 'Splash', 'Pale', 'Light'],
         'PINK': ['Petal', 'Flower', 'Rose', 'Pale', 'Soft', 'Primrose', 'Bloom', 'Strawberry', 'Blossom', 'Hibiscus', 'Berry', 'Pink', 'Sweet', 'Serene', 'Flower'],
-        'DARKPINK': ['Petal', 'Flower', 'Rose', 'Pale', 'Soft', 'Primrose', 'Bloom', 'Strawberry', 'Blossom', 'Hibiscus', 'Dark', 'Berry', 'Flower', 'Gemstone'],
         'VIOLET': ['Night', 'Purple', 'Magic', 'Magical', 'Moon', 'Violet', 'Lavender', 'Lilac', 'Amethyst', 'Jewel', 'Gem', 'Gemstone', 'Petal', 'Flower', 'Plum'],
         'BROWN': ['Oak', 'Brown', 'Tree', 'Bark', 'Alder', 'Branch', 'Twig', 'Stem', 'Mud', 'Mouse', 'Dust', 'Acorn', 'Timber', 'Log', 'Brown', 'Dusky', 'Dusk', 'Dust'],
         'SPRINGGREEN': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsely', 'Bright', 'Spring', 'Light', 'Stem', 'Leaf'],
@@ -276,7 +275,17 @@ class Name():
         'MAGENTA': ['Petal', 'Flower', 'Bloom', 'Blossom', 'Hibiscus', 'Violet', 'Lavender', 'Lilac', 'Amethyst', 'Jewel', 'Gem', 'Gemstone', 'Magenta', 'Flower', 'Petal'],
         'MINT': ['Mint', 'Minty', 'Cold', 'Blue', 'Splash', 'River', 'Water', 'Stream', 'Breeze', 'River', 'Stream', 'Puddle', 'Serene', 'Mist', 'Misty', 'Pale', 'Sky'],
         'EMERALD': ['Green', 'Fern', 'Herb', 'Holly', 'Clover', 'Olive', 'Calm', 'Thyme', 'Chervil', 'Tansy', 'Parsely', 'Bright', 'Spring', 'Emerald', 'Jewel', 'Jade'],
-        'DARKRED': ['Red', 'Crimson', 'Fire', 'Blood', 'Scorch', 'Flame', 'Flaming', 'Rose', 'Ember', 'Burnt', 'Burning', 'Dark', 'Night', 'Raven', 'Cardinal', 'Crow']
+        'PUMPKIN': ['Amber', 'Sun', 'Fire', 'Gold', 'Honey', 'Scorch', 'Ember', 'Flame', 'Flaming', 'Orange', 'Butterfly', 'Monarch', 'Pumpkin', 'Carrot', 'Rust', 'Rusty'],
+        'ROSEGOLD': ['Rose', 'Pink', 'Coral', 'Gold', 'Golden', 'Bright', 'Shining', 'Sun', 'Light', 'Petal', 'Blooming', 'Flower', 'Spring', 'Shiny', 'Strawberry', 'Berry'],
+        'GREENGOLD': ['Gold', 'Golden', 'Sun', 'Sunny', 'Spring', 'Green', 'Bright', 'Dandelion', 'Marigold', 'Herb', 'Clover', 'Emerald', 'Jade', 'Honey', 'Leaf', 'Sapling'],
+        'PINKBLUE': ['Petal', 'Flower', 'Rose', 'Pale', 'Soft', 'Strawberry', 'Blossom', 'Pink', 'Flower', 'Stream', 'Sky', 'Blue', 'Sweet', 'Serene', 'Splash', 'Sapphire'],
+        'DANDELION': ['Dandelion', 'Yellow', 'Sun', 'Sunny', 'Hazel', 'Tawny', 'Green', 'Spring', 'Bright', 'Clover', 'Marigold', 'Shining', 'Emerald', 'Honey', 'Leaf', 'Light'],
+        'INDIGO': ['Ocean', 'Violet', 'Blue', 'Deep', 'Whale', 'Water', 'Dark', 'River', 'Lake', 'Splash', 'Hidden', 'Jewel', 'Sapphire', 'Lapis', 'Moon', 'Night', 'Ebony', 'Raven'],
+        'AMARANTH': ['Hibiscus', 'Amaranth', 'Red', 'Pink', 'Bright', 'Light', 'Blossom', 'Strawberry', 'Cherry', 'Apple', 'Rose', 'Crimson', 'Ember', 'Fox', 'Flame', 'Flaming'],
+        'CORAL': ['Coral', 'Pink', 'Bright', 'Light', 'Pale', 'Soft', 'Sweet', 'Petal', 'Blossom', 'Strawberry', 'Blooming', 'Primrose', 'Berry', 'Cloud', 'Flower', 'Serene'],
+        'DARKGREEN': ['Dark', 'Green', 'Forest', 'Leaf', 'Grass', 'Fern', 'Ivy', 'Vine', 'Thyme', 'Herb', 'Clover', 'Holly', 'Stem', 'Night', 'Sage', 'Branch', 'Twig', 'Stem'],
+        'DARKAMBER': ['Amber', 'Copper', 'Fire', 'Bear', 'Hidden', 'Scorch', 'Ember', 'Flame', 'Flaming', 'Dark', 'Butterfly', 'Monarch', 'Pumpkin', 'Brown', 'Rust', 'Rusty'],
+        'SCARLET': ['Red', 'Crimson', 'Fire', 'Amber', 'Scorch', 'Flame', 'Flaming', 'Rose', 'Ember', 'Burnt', 'Burning', 'Scarlet', 'Bright', 'Hidden', 'Cardinal', 'Light']
     }
 
     loner_names = [
@@ -345,7 +354,8 @@ class Name():
         "Leo", "Tucker", "Minette", "Milo", "Fork", "Penny", "Zelda", "Jake", 
         "Felix", "Oliver", "Kitty", "Chloe", "Angel", "Samantha", "Muschi", 
         "Chicco", "Caramel", "Charlotte", "Chanel", "Lola", "Ollie", "Boo", 
-        "Frankie", "Hotdog", "Beverly", "Mera", "Tasha"
+        "Frankie", "Hotdog", "Beverly", "Mera", "Tasha", "Gremlin", "Magi",
+        "Angel", "Pipsqueak", "Snip-Snap", "Slinky", "Dragon"
     ]
 
     if os.path.exists('saves/prefixlist.txt'):

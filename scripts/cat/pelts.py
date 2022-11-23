@@ -528,10 +528,14 @@ tortiecolours = ["SILVER", "GREY", "DARKGREY", "BLACK", "LIGHTBROWN", "BROWN", "
                  "LILAC", "BLACK2", "DARK", "FAWN", "CINNAMON", "CARAMEL", "CHOCOLATE"]
 
 pelt_length = ["short", "medium", "medium", "long"]
-eye_colours = ['YELLOW', 'AMBER', 'HAZEL', 'PALEGREEN', 'GREEN', 'BLUE', 'DARKBLUE',
-               'PALEYELLOW', 'RED', 'AQUA', 'PALEVIOLET', 'SAGE', 'PALEBLUE', 'PINK',
-               'DARKPINK', 'VIOLET', 'BROWN', 'SPRINGGREEN', 'GOLDEN', 'HONEY',
-               'COPPER', 'MAGENTA', 'MINT', 'EMERALD', 'DARKRED']
+eye_colours = ['YELLOW', 'AMBER', 'HAZEL', 'PALEGREEN', 'GREEN',
+               'BLUE', 'DARKBLUE', 'PINK', 'SCARLET', 'VIOLET',
+               'PALEYELLOW', 'RED', 'AQUA', 'PALEVIOLET',
+               'SAGEGREEN', 'PALEBLUE', 'BROWN', 'SPRINGGREEN',
+               'GOLD', 'HONEY', 'COPPER', 'MAGENTA', 'MINT',
+               'EMERALD', 'PUMPKIN', 'ROSEGOLD', 'DANDELION',
+               'INDIGO', 'AMARANTH', 'CORAL', 'DARKGREEN',
+               'DARKAMBER']
 # scars1 is scars from other cats, other animals - scars2 is missing parts - scars3 is "special" scars that could only happen in a special event
 scars1 = ["ONE", "TWO", "THREE", "TAILSCAR", "SNOUT", "CHEEK", "SIDE", "THROAT", "TAILBASE", "BELLY",
             "LEGBITE", "NECKBITE", "FACE"]
@@ -568,10 +572,11 @@ single_colours = [
     'CHOCOLATE', 'PALE', 'APRICOT', 'CREAM', 'ORANGE', 'CREAM2'
 ]
 eye_sprites = [
-    'YELLOW', 'AMBER', 'HAZEL', 'PALEGREEN', 'GREEN', 'BLUE', 'DARKBLUE',
-    'BLUEYELLOW', 'BLUEGREEN', 'PALEYELLOW', 'RED', 'AQUA', 'PALEVIOLET',
-    'SAGE', 'PALEBLUE', 'PINK', 'DARKPINK', 'VIOLET', 'BROWN', 'SPRINGGREEN',
-    'GOLDEN', 'HONEY', 'COPPER', 'MAGENTA', 'MINT', 'EMERALD', 'DARKRED'
+    'YELLOW', 'AMBER', 'HAZEL', 'PALEGREEN', 'GREEN', 'BLUE', 'DARKBLUE', 'PINK',
+    'SCARLET', 'VIOLET', 'PALEYELLOW', 'RED', 'AQUA', 'PALEVIOLET', 'SAGEGREEN',
+    'PALEBLUE', 'BROWN', 'SPRINGGREEN', 'GOLD', 'HONEY', 'COPPER', 'MAGENTA', 'MINT',
+    'EMERALD', 'PUMPKIN', 'ROSEGOLD', 'DANDELION', 'INDIGO', 'AMARANTH', 'CORAL',
+    'DARKGREEN', 'DARKAMBER', 'BLUEYELLOW', 'BLUEGREEN', 'GREENGOLD', 'PINKBLUE'
 ]
 little_white = ['LITTLE', 'LITTLECREAMY', 'LIGHTTUXEDO', 'BUZZARDFANG', 'TIP', 'BLAZE', 'BIB', 'VEE', 'PAWS', 
     'BELLY', 'TAILTIP', 'TOES', 'BROKENBLAZE', 'LILTWO', 'SCOURGE', 'TOESTAIL', 'RAVENPAW', 'HONEY']

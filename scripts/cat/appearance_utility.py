@@ -131,7 +131,7 @@ def init_eyes(cat):
         return
     hit = randint(0, 200)
     if hit == 1:
-        cat.eye_colour = choice(["BLUEYELLOW", "BLUEGREEN"])
+        cat.eye_colour = choice(["BLUEYELLOW", "BLUEGREEN", "GREENGOLD", "PINKBLUE"])
     else:
         if cat.parent1 is None:
             cat.eye_colour = choice(eye_colours)
