@@ -214,6 +214,54 @@ class Sprites():
             sprites.make_group('yarnextra', (a, 2),
                                f'collarsextra{i}',
                                sprites_y=2)
+            
+        for a, i in enumerate(["REDSCARF", "BLUESCARF", "YELLOWSCARF", "CYANSCARF", "CRIMSONSCARF", "LIMESCARF"]):
+            sprites.make_group('scarf', (a, 2), f'collars{i}')
+            sprites.make_group('scarfextra', (a, 0),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["GREENSCARF", "RAINBOWSCARF", "GREYSCARF", "GOLDSCARF"]):
+            sprites.make_group('scarf', (a, 1), f'collars{i}')
+            sprites.make_group('scarfextra', (a, 1),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["PINKSCARF", "PURPLESCARF", "ORANGESCARF"]):
+            sprites.make_group('scarf', (a, 2), f'collars{i}')
+            sprites.make_group('scarfextra', (a, 2),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+            
+        for a, i in enumerate(["REDSCARFS", "BLUESCARFS", "ORANGESCARFS", "MINTSCARFS", "CRIMSONSCARFS", "GREENSCARFS"]):
+            sprites.make_group('scarfstripe', (a, 0), f'collars{i}')
+            sprites.make_group('scarfstripeextra', (a, 0),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["CYANSCARFS", "BLUE2SCARFS", "PURPLESCARFS", "GOLDSCARFS"]):
+            sprites.make_group('scarfstripe', (a, 1), f'collars{i}')
+            sprites.make_group('scarfstripeextra', (a, 1),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["PINKSCARFS", "YELLOWSCARFS", "BLACKSCARFS"]):
+            sprites.make_group('scarfstripe', (a, 2), f'collars{i}')
+            sprites.make_group('scarfstripeextra', (a, 2),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+            
+        for a, i in enumerate(["CRIMSONSPIKE", "BLUESPIKE", "YELLOWSPIKE", "CYANSPIKE", "REDSPIKE", "LIMESPIKE"]):
+            sprites.make_group('collarspiky', (a, 0), f'collars{i}')
+            sprites.make_group('collarspikyextra', (a, 0),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["GREENSPIKE", "RAINBOWSPIKE", "BLACKSPIKE", "GOLDSPIKE"]):
+            sprites.make_group('collarspiky', (a, 1), f'collars{i}')
+            sprites.make_group('collarspikyextra', (a, 1),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["PINKSPIKE", "PURPLESPIKE", "MULTISPIKE"]):
+            sprites.make_group('collarspiky', (a, 2), f'collars{i}')
+            sprites.make_group('collarspikyextra', (a, 2),
+                               f'collarsextra{i}',
+                               sprites_y=2)
 
 
 sprites = Sprites(50)
@@ -244,7 +292,8 @@ for x in [
         'tickedcolors2', 'tickedextra2', 'tortiecolourssolid2', 'tortiecolourstabby2', 'tortiecoloursbengal2', 'tortiecoloursmarbled2',
         'tortiecoloursticked2', 'tortiecolourssmoke2', 'tortiecoloursrosette2', 'tortiecoloursspeckled2',
         'tortiesextrasolid2', 'tortiesextratabby2', 'tortiesextrabengal2', 'tortiesextramarbled2', 'tortiesextraticked2',
-        'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2', 'yarn', 'yarnextra', 'lineartdf', 'eyes_df', 'eyesextra_df'
+        'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2', 'yarn', 'yarnextra', 'lineartdf', 'eyes_df', 'eyesextra_df',
+        'scarf', 'scarfextra', 'scarfstripe', 'scarfstripeextra', 'collarspiky', 'collarspikyextra'
 
 ]:
     sprites.spritesheet(f"sprites/{x}.png", x)
