@@ -9,6 +9,7 @@ screen_y = 700
 screen = pygame.display.set_mode((screen_x, screen_y), pygame.HWSURFACE)
 pygame.display.set_caption('Clan Generator')
 
+SAVE_DEATH = True
 
 # G A M E
 class Game():
@@ -136,7 +137,8 @@ class Game():
         'show empty relation': False,
         'romantic with former mentor': True,
         'game_mode': None,
-        'deputy': False
+        'deputy': False,
+        'den labels': True
     }  # The current settings
     setting_lists = {
         'no gendered breeding': [False, True],
@@ -156,7 +158,8 @@ class Game():
         'show empty relation': [False, True],
         'romantic with former mentor': [False, True],
         'game_mode': game_mode_list,
-        'deputy': [False, True]
+        'deputy': [False, True],
+        'den labels': [False, True]
     }  # Lists of possible options for each setting
     settings_changed = False
 
@@ -199,6 +202,8 @@ class Game():
             self.switches['save_clan'] = False
             self.switches['saved_clan'] = True
         if self.switches['switch_clan']:
+            self.clan.save_clan()
+            self.save_cats()
             self.clan.switch_clans()
             self.switches['switch_clan'] = False
         if self.switches['read_clans']:
@@ -341,6 +346,7 @@ class Game():
                 "df": inter_cat.df
             }
             clan_cats.append(cat_data)
+            inter_cat.save_condition()
             if not inter_cat.dead:
                 inter_cat.save_relationship_of_cat()
         try:

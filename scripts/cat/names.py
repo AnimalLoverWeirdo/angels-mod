@@ -51,6 +51,11 @@ class Name():
         'Ghost': ['stripe', 'feather', 'leaf', 'stripe', 'shade', 'ghost'],
         'Pinstripe': ['stripe', 'feather', 'leaf', 'stripe', 'shade'],
         'Spotted': ['dapple', 'speckle', 'spot', 'speck', 'freckle'],
+        'Cloudy': ['stripe', 'feather', 'leaf', 'stripe', 'shade'],
+        'Classic': ['stripe', 'feather', 'leaf', 'stripe', 'shade'],
+        'Mackerel': ['stripe', 'feather', 'leaf', 'stripe', 'shade'],
+        'Sokoke': ['stripe', 'feather', 'leaf', 'stripe', 'shade'],
+        'Gradient': ['fade', 'dusk', 'dawn', 'smoke'],
     }
 
     tortie_pelt_suffixes = {
@@ -66,7 +71,10 @@ class Name():
         'tortieclouded': ['stripe', 'feather', 'leaf', 'stripe', 'shade'],
         'tortiesnowflake': ['dapple', 'speckle', 'spot', 'speck', 'freckle', 'snow', 'snowflake'],
         'tortieghost': ['stripe', 'feather', 'leaf', 'stripe', 'shade', 'ghost'],
-        'tortiepinstripe': ['stripe', 'feather', 'leaf', 'stripe', 'shade']
+        'tortiepinstripe': ['stripe', 'feather', 'leaf', 'stripe', 'shade'],
+        'tortieclassic': ['stripe', 'feather', 'leaf', 'stripe', 'shade', 'fern'],
+        'tortiemackerel': ['stripe', 'feather', 'leaf', 'stripe', 'shade', 'fern'],
+        'tortiesokoke': ['stripe', 'feather', 'leaf', 'stripe', 'shade', 'fern']
     }
 
     normal_prefixes = [

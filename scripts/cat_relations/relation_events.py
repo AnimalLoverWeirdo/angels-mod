@@ -714,4 +714,6 @@ class Relation_Events():
         return all_kitten
 
     def get_amount_of_kits(self, cat):
-        return random.choices([1,2,3,4,5,6,7,8], k=1, weights=[8,9,10,8,7,5,3,2])[0]
+        return random.choices([1,2,3,4,5,6,7,8], k=1, weights=[6,8,14,8,5,3,2,1])[0]
+
+        return amount
