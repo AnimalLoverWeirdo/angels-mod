@@ -113,6 +113,30 @@ def accessory_display_name(cat, accessory):
                 collar_color = 'orange'
             elif acc_display.startswith('gradient'):
                 collar_color = 'sunset'
+            elif acc_display.startswith('lesbian'):
+                collar_color = 'lesbian'
+            elif acc_display.startswith('gay'):
+                collar_color = 'gay'
+            elif acc_display.startswith('nonbinary'):
+                collar_color = 'nonbinary'
+            elif acc_display.startswith('bisexual'):
+                collar_color = 'bisexual'
+            elif acc_display.startswith('asexual'):
+                collar_color = 'asexual'
+            elif acc_display.startswith('aromantic'):
+                collar_color = 'aromantic'
+            elif acc_display.startswith('aroace'):
+                collar_color = 'aroace'
+            elif acc_display.startswith('omnisexual'):
+                collar_color = 'omnisexual'
+            elif acc_display.startswith('intersex'):
+                collar_color = 'intersex'
+            elif acc_display.startswith('transgender'):
+                collar_color = 'transgender'
+            elif acc_display.startswith('genderqueer'):
+                collar_color = 'genderqueer'
+            elif acc_display.startswith('agender'):
+                collar_color = 'agender'
             if acc_display.endswith('bow') and not acc_display == 'rainbow':
                 acc_display = collar_color + ' bow'
             elif acc_display.endswith('bell'):
@@ -125,6 +149,8 @@ def accessory_display_name(cat, accessory):
                 acc_display = collar_color + ' striped scarf'
             elif acc_display.endswith('spike'):
                 acc_display = collar_color + ' spiked collar'
+            elif acc_display.endswith('ban'):
+                acc_display = collar_color + ' bandana'
             else:
                 acc_display = collar_color + ' collar'
 

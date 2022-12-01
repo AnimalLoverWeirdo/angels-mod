@@ -714,6 +714,27 @@ class Relation_Events():
         return all_kitten
 
     def get_amount_of_kits(self, cat):
-        return random.choices([1,2,3,4,5,6,7,8], k=1, weights=[6,8,14,8,5,3,2,1])[0]
+        """Get the amount of kits which will be born."""
+        one_kit_possibility = {"young adult": 8,"adult": 9,"senior adult": 10,"elder": 10}
+        two_kit_possibility = {"young adult": 10,"adult": 13,"senior adult": 15,"elder": 7 }
+        three_kit_possibility = {"young adult": 17,"adult": 15,"senior adult": 5,"elder": 4}
+        four_kit_possibility = {"young adult": 18,"adult": 10,"senior adult": 4,"elder": 3}
+        five_kit_possibility = {"young adult": 10,"adult": 7,"senior adult": 5,"elder": 3}
+        six_kit_possibility = {"young adult": 6,"adult": 5,"senior adult": 4,"elder": 2}
+        seven_kit_possibility = {"young adult": 5,"adult": 4,"senior adult": 3,"elder" : 0}
+        eight_kit_possibility = {"young adult": 4,"adult": 3,"senior adult": 2,"elder" : 0}
+        nine_kit_possibility = {"young adult": 3,"adult": 2,"senior adult": 1,"elder" : 0}
+        ten_kit_possibility = {"young adult": 2,"adult": 1,"senior adult": 0,"elder" : 0}
+        one_kit = [1] * one_kit_possibility[cat.age]
+        two_kits = [2] * two_kit_possibility[cat.age]
+        three_kits = [3] * three_kit_possibility[cat.age]
+        four_kits = [4] * four_kit_possibility[cat.age]
+        five_kits = [5] * five_kit_possibility[cat.age]
+        six_kits = [6] * six_kit_possibility[cat.age]
+        seven_kits = [7]* seven_kit_possibility[cat.age]
+        eight_kits = [8]* eight_kit_possibility[cat.age]
+        nine_kits = [9]* nine_kit_possibility[cat.age]
+        ten_kits = [10]* ten_kit_possibility[cat.age]
+        amount = choice(one_kit + two_kits + three_kits + four_kits + five_kits + six_kits + seven_kits + eight_kits + nine_kits + ten_kits)
 
         return amount

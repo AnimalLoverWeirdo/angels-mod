@@ -140,6 +140,19 @@ class Sprites():
             sprites.make_group('medcatherbsextra', (a, 3), f'acc_herbsextra{i}', sprites_y=2)    
         sprites.make_group('medcatherbs', (5, 2), 'acc_herbsDRY HERBS')
         sprites.make_group('medcatherbsextra', (5, 2), 'acc_herbsextraDRY HERBS', sprites_y=2)
+    
+        for a, i in enumerate([
+            "POPPY FLOWER", "JUNIPER BERRIES", "DAISY FLOWER", "BORAGE FLOWER", "OAK LEAF", "BEECH LEAF"]):
+            sprites.make_group('flowers', (a, 0), f'acc_herbs{i}')
+            sprites.make_group('flowersextra', (a, 0), f'acc_herbsextra{i}', sprites_y=2)
+        for a, i in enumerate([
+            "LAUREL LEAVES", "COLTSFOOT FLOWER", "BINDWEED VINE", "TORMENTIL FLOWER"]):
+            sprites.make_group('flowers', (a, 1), f'acc_herbs{i}')
+            sprites.make_group('flowersextra', (a, 1), f'acc_herbsextra{i}', sprites_y=2)
+        for a, i in enumerate([
+            "BRIGHT-EYE FLOWER", "LAVENDER FLOWER", "YARROW CLUMP"]):
+            sprites.make_group('flowers', (a, 2), f'acc_herbs{i}')
+            sprites.make_group('flowersextra', (a, 2), f'acc_herbsextra{i}', sprites_y=2)
         
         for a, i in enumerate([
             "RED FEATHERS", "BLUE FEATHERS", "JAY FEATHERS", "MOTH WINGS", "CICADA WINGS"]):
@@ -262,6 +275,22 @@ class Sprites():
             sprites.make_group('collarspikyextra', (a, 2),
                                f'collarsextra{i}',
                                sprites_y=2)
+        
+        for a, i in enumerate(["LESBIANBAN", "GAYBAN", "NONBINARYBAN", "BISEXUALBAN", "ASEXUALBAN", "AROMANTICBAN"]):
+            sprites.make_group('pride', (a, 0), f'collars{i}')
+            sprites.make_group('prideextra', (a, 0),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["AROACEBAN", "OMNISEXUALBAN", "INTERSEXBAN", "RAINBOWBAN"]):
+            sprites.make_group('pride', (a, 1), f'collars{i}')
+            sprites.make_group('prideextra', (a, 1),
+                               f'collarsextra{i}',
+                               sprites_y=2)
+        for a, i in enumerate(["TRANSGENDERBAN", "GENDERQUEERBAN", "AGENDERBAN"]):
+            sprites.make_group('pride', (a, 2), f'collars{i}')
+            sprites.make_group('prideextra', (a, 2),
+                               f'collarsextra{i}',
+                               sprites_y=2)
 
 
 sprites = Sprites(50)
@@ -290,12 +319,13 @@ for x in [
         'singlecolours2', 'singleextra2', 'speckledcolours2', 'speckledextra2', 'tabbycolours2', 'tabbyextra2',
         'bengalcolours2', 'bengalextra2', 'marbledcolours2', 'marbledextra2', 'rosettecolours2', 'rosetteextra2', 'smokecolours2', 'smokeextra2',
         'tickedcolors2', 'tickedextra2', 'tortiecolourssolid2', 'tortiecolourstabby2', 'tortiecoloursbengal2', 'tortiecoloursmarbled2',
-        'tortiecoloursticked2', 'tortiecolourssmoke2', 'tortiecoloursrosette2', 'tortiecoloursspeckled2',
-        'tortiesextrasolid2', 'tortiesextratabby2', 'tortiesextrabengal2', 'tortiesextramarbled2', 'tortiesextraticked2',
-        'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2', 'yarn', 'yarnextra', 'lineartdf', 'eyes_df', 'eyesextra_df',
-        'scarf', 'scarfextra', 'scarfstripe', 'scarfstripeextra', 'collarspiky', 'collarspikyextra', 'cloudycolours', 'cloudyextra',
+        'tortiecoloursticked2', 'tortiecolourssmoke2', 'tortiecoloursrosette2','tortiecoloursspeckled2',
+        'tortiesextrasolid2', 'tortiesextratabby2', 'tortiesextrabengal2', 'tortiesextramarbled2',
+        'tortiesextraticked2', 'tortiesextrasmoke2', 'tortiesextrarosette2', 'tortiesextraspeckled2', 'yarn',
+        'yarnextra', 'lineartdf', 'eyes_df', 'eyesextra_df', 'scarf', 'scarfextra', 'scarfstripe', 'scarfstripeextra', 'collarspiky','collarspikyextra', 'cloudycolours', 'cloudyextra',
         'classic', 'classicextra', 'gradient', 'gradientextra', 'mackerel', 'mackerelextra',
-        'sokoke', 'sokokeextra', 'tortieclassic', 'tortieclassicextra', 'tortiemackerel', 'tortiemackerelextra', 'tortiesokoke', 'tortiesokokeextra'
+        'sokoke', 'sokokeextra', 'tortieclassic', 'tortieclassicextra', 'tortiemackerel', 'siamese', 'siameseextra',
+        'tortiemackerelextra', 'tortiesokoke', 'tortiesokokeextra', 'flowers', 'flowersextra', 'pride', 'prideextra'
 
 ]:
     sprites.spritesheet(f"sprites/{x}.png", x)
@@ -673,6 +703,16 @@ for a, i in enumerate(['PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER']):
 for a, i in enumerate(['LIGHTBROWN', 'BROWN', 'DARKBROWN']):
     sprites.make_group('gradient', (a, 2), f'gradient{i}')
     sprites.make_group('gradientextra', (a, 2), f'gradientextra{i}', sprites_y=2)
+#siamese
+for a, i in enumerate(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'BLACK']):
+    sprites.make_group('siamese', (a, 0), f'siamese{i}')
+    sprites.make_group('siameseextra', (a, 0), f'siameseextra{i}', sprites_y=2)
+for a, i in enumerate(['PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER']):
+    sprites.make_group('siamese', (a, 1), f'siamese{i}')
+    sprites.make_group('siameseextra', (a, 1), f'siameseextra{i}', sprites_y=2)
+for a, i in enumerate(['LIGHTBROWN', 'BROWN', 'DARKBROWN']):
+    sprites.make_group('siamese', (a, 2), f'siamese{i}')
+    sprites.make_group('siameseextra', (a, 2), f'siameseextra{i}', sprites_y=2)
 #new torties
 #solids
 for a, i in enumerate(['PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR']):

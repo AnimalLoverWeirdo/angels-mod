@@ -581,6 +581,34 @@ class Gradient(object):
             return f"white and {self.colour}{self.length} gradient"
         else:
             return self.colour + self.length + " gradient"
+        
+class Siamese(object):
+    name = "Siamese"
+    sprites = {1: 'siamese', 2: 'white'}
+    white_patches = [
+        'LITTLE', 'LITTLECREAMY', 'LIGHTTUXEDO', 'BUZZARDFANG', 'TIP', 'BLAZE', 
+        'BIB', 'VEE', 'PAWS', 'BELLY', 'TAILTIP', 'TOES', 'BROKENBLAZE', 'LILTWO',
+        'SCOURGE', 'TOESTAIL', 'RAVENPAW', 'HONEY',
+        'TUXEDO', 'TUXEDOCREAMY', 'FANCY', 'UNDERS', 'DAMIEN', 'SKUNK',
+        'MITAINE', 'SQUEAKS', 'STAR',
+        'ANY', 'ANYCREAMY', 'ANY2', 'ANY2CREAMY', 'BROKEN', 'FRECKLES', 'RINGTAIL', 
+        'HALFFACE', 'PANTS2', 'GOATEE', 'PRINCE', 'FAROFA', 'MISTER', 'PANTS', 
+        'REVERSEPANTS', 'HALFWHITE', 'APPALOOSA', 'PIEBALD', 'CURVED', 'GLASS', 
+        'VAN', 'VANCREAMY', 'ONEEAR', 'LIGHTSONG', 'TAIL', 'HEART', 'MOORISH',
+        'MASKMANTLE', 'APRON', 'CAPSADDLE',
+        'COLOURPOINT', 'COLOURPOINTCREAMY', 'RAGDOLL', 'VITILIGO',
+        'VITILIGO2'
+    ]
+    def __init__(self, colour, white, length):
+        self.white = white  # boolean; does cat have white on it or no
+        self.colour = colour
+        self.length = length
+
+    def __repr__(self):
+        if self.white:
+            return f"white and {self.colour}{self.length} siamese"
+        else:
+            return self.colour + self.length + " siamese"
 
 class Tortie(object):
     name = "Tortie"
@@ -659,7 +687,7 @@ patch_colours = ['PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'GOLDONE', 'GOLD
     'CREAMONE2', 'CREAMTWO2', 'CREAMTHREE2', 'CREAMFOUR2']
 tortiebases = ['spotted', 'single', 'tabby', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette',
                'speckled', 'abyssinian', 'snowflake', 'clouded', 'merle', 'ghost', 'pinstripe',
-               'doberman', 'cloudy', 'classic', 'mackerel', 'sokoke', 'gradient']
+               'doberman', 'cloudy', 'classic', 'mackerel', 'sokoke', 'gradient', 'siamese']
 tortiecolours = ["SILVER", "GREY", "DARKGREY", "BLACK", "LIGHTBROWN", "BROWN", "DARKBROWN", "BLUE",
                  "LILAC", "BLACK2", "DARK", "FAWN", "CINNAMON", "CARAMEL", "CHOCOLATE"]
 
@@ -680,7 +708,10 @@ scars3 = ["SNAKE", "TOETRAP"]
 
 plant_accessories = ["MAPLE LEAF", "HOLLY", "BLUE BERRIES", "FORGET ME NOTS", "RYE STALK", "LAUREL",
                     "BLUEBELLS", "NETTLE", "POPPY", "LAVENDER", "HERBS", "PETALS", "DRY HERBS",
-                    "OAK LEAVES", "CATMINT", "MAPLE SEED", "JUNIPER"
+                    "OAK LEAVES", "CATMINT", "MAPLE SEED", "JUNIPER", "POPPY FLOWER", "JUNIPER BERRIES",
+                    "DAISY FLOWER", "BORAGE FLOWER", "OAK LEAF", "BEECH LEAF", "LAUREL LEAVES",
+                     "COLTSFOOT FLOWER", "BINDWEED VINE", "TORMENTIL FLOWER", "BRIGHT-EYE FLOWER",
+                     "LAVENDER FLOWER", "YARROW CLUMP"
 ]
 wild_accessories = ["RED FEATHERS", "BLUE FEATHERS", "JAY FEATHERS", "MOTH WINGS", "CICADA WINGS"
 ]
@@ -700,14 +731,16 @@ collars = [
     "CRIMSONSCARFS", "GREENSCARFS", "CYANSCARFS", "BLUE2SCARFS", "PURPLESCARFS",
     "GOLDSCARFS", "PINKSCARFS", "YELLOWSCARFS", "BLACKSCARFS", "CRIMSONSPIKE",
     "BLUESPIKE", "YELLOWSPIKE", "CYANSPIKE", "REDSPIKE", "LIMESPIKE", "GREENSPIKE",
-    "RAINBOWSPIKE", "BLACKSPIKE", "GOLDSPIKE", "PINKSPIKE", "PURPLESPIKE", "MULTISPIKE"
+    "RAINBOWSPIKE", "BLACKSPIKE", "GOLDSPIKE", "PINKSPIKE", "PURPLESPIKE", "MULTISPIKE",
+    "LESBIANBAN", "GAYBAN", "NONBINARYBAN", "BISEXUALBAN", "ASEXUALBAN", "AROMANTICBAN", "AROACEBAN",
+    "OMNISEXUALBAN", "INTERSEXBAN", "RAINBOWBAN", "TRANSGENDERBAN", "GENDERQUEERBAN", "AGENDERBAN"
 ]
 pelt_names_F = ["Spotted", "SingleColour", "SingleColour", "TwoColour", "Tabby", "Tortie", "Calico", "Ghost", "Doberman", "Pinstripe",
     "Tabby", "TwoColour", "Speckled", "Marbled", "Bengal", "Rosette", "Smoke", "Ticked", "Merle", "Abyssinian", "Snowflake", "Clouded",
-    "Cloudy", "Classic", "Mackerel", "Sokoke", "Gradient"]
+    "Cloudy", "Classic", "Mackerel", "Sokoke", "Gradient", "Siamese"]
 pelt_names_M = ["Spotted", "SingleColour", "SingleColour", "TwoColour", "Tabby", "Tabby", "Speckled", "Ghost", "Doberman", "Pinstripe",
     "TwoColour", "Marbled", "Bengal", "Rosette", "Smoke", "Ticked", "Merle", "Abyssinian", "Snowflake", "Clouded", "Cloudy", "Classic",
-    "Mackerel", "Sokoke", "Gradient"]
+    "Mackerel", "Sokoke", "Gradient", "Siamese"]
 
 # SPRITE NAMES
 single_colours = [
@@ -902,6 +935,13 @@ def choose_pelt(gender,colour=None,white=None,pelt=None,length=None,determined=F
             return Sokoke(choice(pelt_colours), white, length)
         else:
             return Sokoke(colour, white, length)
+    elif pelt == "Siamese":
+        if colour is None and white is None:
+            return Siamese(choice(pelt_colours), choice([False, True]), length)
+        elif colour is None:
+            return Siamese(choice(pelt_colours), white, length)
+        else:
+            return Siamese(colour, white, length)
     elif pelt == "Tortie":
         if white is None:
             return Tortie(choice([False, True]), length)
@@ -977,6 +1017,8 @@ def describe_color(pelt, tortiecolour, tortiepattern, white_patches):
             color_name = color_name + ' sokoke tabby'
         elif pelt.name == "Gradient":
             color_name = color_name + ' faded'
+        elif pelt.name == "Siamese":
+            color_name = color_name + ' colourpoint'
 
         elif pelt.name == "Tortie":
             if tortiepattern not in ["tortiesolid", "tortiesmoke"]:
@@ -1000,7 +1042,7 @@ def describe_color(pelt, tortiecolour, tortiepattern, white_patches):
             elif white_patches in mostly_white and pelt_colours != 'DARK':
                 color_name = 'white and ' + color_name
             # colorpoint
-            elif white_patches in point_markings and pelt.name != 'Doberman':
+            elif white_patches in point_markings and pelt.name != 'Doberman' and pelt.name != 'Colourpoint':
                 color_name = color_name + ' point'
                 if color_name == 'dark ginger point' or color_name == 'ginger point' or color_name == 'orange point' or color_name == 'apricot point':
                     color_name = 'flame point'

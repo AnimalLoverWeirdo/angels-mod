@@ -325,7 +325,7 @@ class Events():
                 #if self.ceremony_accessory == True:
                  #   acc_text.extend([f'{other_name} gives {name} something to adorn their pelt as congratulations', f'{name} decides to pick something to adorn their pelt as celebration'])
                 if cat.age != 'kitten':
-                    if cat.accessory in ["FORGET ME NOTS", "BLUEBELLS", "POPPY"]:
+                    if cat.accessory in ["FORGET ME NOTS", "BLUEBELLS", "POPPY", "BORAGE FLOWER", "POPPY FLOWER", "COLTSFOOT FLOWER", "TORMENTIL FLOWER", "DAISY FLOWER", "LAVENDER FLOWER", "BRIGHT-EYE FLOWER"]:
                         if game.clan.current_season == 'Leaf-bare':
                             acc_text.append(f'{name} found a mysterious {acc_singular} growing in the {choice(["snow", "ice", "frost"])} and decided to wear it.')
                         else:
@@ -351,7 +351,7 @@ class Events():
                                          f'{other_name} gives {name} a pretty {acc_singular} and they decide to wear it on their pelt.'
                         ])
                 else:
-                    if cat.accessory in ["FORGET ME NOTS", "BLUEBELLS", "POPPY"]:
+                    if cat.accessory in ["FORGET ME NOTS", "BLUEBELLS", "POPPY", "BORAGE FLOWER", "POPPY FLOWER", "COLTSFOOT FLOWER", "TORMENTIL FLOWER", "DAISY FLOWER", "LAVENDER FLOWER", "BRIGHT-EYE FLOWER"]:
                         acc_text.extend([f'{name} received a {acc_singular} from {other_name} and decided to wear it on their pelt.',
                                          f'{name} found a {acc_singular} and decided to wear it on their pelt.',
                                          f'A clanmate gave {name} a {acc_singular} and they decided to wear it.'
